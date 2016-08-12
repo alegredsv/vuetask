@@ -2,19 +2,28 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Contas - Code</title>
+    <title>Tarefa Contas - Code</title>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <style>
+        .centralizado {
+            margin: 0 auto;
+            float: none;
+        }
+    </style>
 </head>
-<body id="app">
+<body id="app" >
+<div  class="container centralizado">
+
 <h1>{{ title }}</h1>
 <h3>{{status }}</h3>
 <nav>
     <ul>
         <li v-for="o in menus"><a href="#" @click.prevent="showView($event,o.id)">{{ o.name }}</a></li>
-
     </ul>
-    </nav>
-<div v-if="activedView == 0">
-    <table>
+</nav>
+<div v-if="activedView == 0" class="col-xs-12 col-md-8">
+    <table class="table">
         <thead>
         <tr>
             <td>#</td>
@@ -22,6 +31,7 @@
             <td>Nome</td>
             <td>Valor</td>
             <td>Paga?</td>
+            <td>Ações</td>
         </tr>
         </thead>
         <tbody>
@@ -29,29 +39,35 @@
             <td>{{ index +1 }}</td>
             <td>{{ o.date_due }}</td>
             <td>{{ o.name }}</td>
-            <td>{{ o.value }}</td>
-            <td>{{ o.done }}</td>
+            <td>{{ o.value | currency 'R$ '}}</td>
+            <td>{{ o.done | doneLabel }}</td>
+            <td><a href="#" @click.prevent="editaConta(o)">Editar</a> </td>
         </tr>
         </tbody>
     </table>
 
 </div>
-<div v-if="activedView == 1">
-    <form name="form" @submit.prevent="submit">
-        <label>Vencimento:</label>
-        <input type="text" v-model="bill.date_due"/><br><br>
-        <label>Nome:</label>
-        <select v-model="bill.name">
+<div v-if="activedView == 1" class="col-xs-12 col-md-8">
+    <form name="form-control" @submit.prevent="submit">
+        <div class="form-group">
+            <label for="vencimento">Vencimento</label>
+            <input type="text" class="form-control" v-model="bill.date_due" id="vencimento" placeholder="Vencimento">
+        </div>
+        <div class="form-group ">
+            <label for="nome">Nome</label>
+            <select v-model="bill.name" id="nome" class="form-control">
                 <option v-for="o in names" value="{{ o }}">{{o}}</option>
-        </select><br><br>
+            </select>
+        </div>
+
+       <br><br>
         <label>Valor:</label>
         <input type="text"  v-model="bill.value"/>
         <br><br>
         <input type="submit" value="Enviar">
     </form>
-
 </div>
-
+</div>
 <script type="text/javascript" src="node_modules/vue/dist/vue.min.js"></script>
 <script type="text/javascript" src="app.js"></script>
 </body>
