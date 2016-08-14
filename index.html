@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Tarefa Contas - Code</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <style>
@@ -41,7 +42,9 @@
             <td>{{ o.name }}</td>
             <td>{{ o.value | currency 'R$ '}}</td>
             <td>{{ o.done | doneLabel }}</td>
-            <td><a href="#" @click.prevent="editaConta(o)">Editar</a> </td>
+            <td><span style="margin: 5px;" @click.prevent="editaConta(o)" title="Editar" aria-hidden="true" class="glyphicon glyphicon-pencil"></span>
+                <span @click.prevent="excluiConta(index);" title="Exluir" aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+             </td>
         </tr>
         </tbody>
     </table>
@@ -51,19 +54,19 @@
     <form name="form-control" @submit.prevent="submit">
         <div class="form-group">
             <label for="vencimento">Vencimento</label>
-            <input type="text" class="form-control" v-model="bill.date_due" id="vencimento" placeholder="Vencimento">
+            <input type="text" style="width: 200px;" class="form-control" v-model="bill.date_due" id="vencimento" placeholder="00/00/0000">
         </div>
         <div class="form-group ">
             <label for="nome">Nome</label>
-            <select v-model="bill.name" id="nome" class="form-control">
+            <select v-model="bill.name" style="width: 200px;" id="nome" placeholder="Nome" class="form-control">
                 <option v-for="o in names" value="{{ o }}">{{o}}</option>
             </select>
         </div>
 
-       <br><br>
-        <label>Valor:</label>
-        <input type="text"  v-model="bill.value"/>
-        <br><br>
+        <div class="form-group ">
+            <label for="valor">Valor</label>
+            <input type="text" style="width: 200px;" class="form-control"v-model="bill.value" id="valor" placeholder="Valor">
+        </div>
         <input type="submit" value="Enviar">
     </form>
 </div>

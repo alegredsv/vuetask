@@ -48,6 +48,7 @@ var app = new Vue({
     methods:{
 
         showView: function ($event, $number) {
+
            this.activedView = $number;
         }
         ,
@@ -56,16 +57,20 @@ var app = new Vue({
             this.activedView =0;
         },
         editaConta:function (bill) {
-            console.log(bill);
+
             this.bill = bill;
             this.activedView = 1;
+        },
+        excluiConta:function (index) {
+            var confimra = confirm("Deseja excluir a conta?");
+            if (index > -1 && confimra) {
+                this.bills.splice(index, 1);
+            }
+            this.activedView =0;
         }
     }
 });
 
-app.$watch('teste',function (novoValor, velhoValor) {
-    console.log(velhoValor+" : "+novoValor);
-});
 Vue.filter("doneLabel", function (value) {
     if(value == 0){
         return 'Não paga';
