@@ -42,8 +42,13 @@
             <td>{{ o.name }}</td>
             <td>{{ o.value | currency 'R$ '}}</td>
             <td>{{ o.done | doneLabel }}</td>
-            <td><span style="margin: 5px;" @click.prevent="editaConta(o)" title="Editar" aria-hidden="true" class="glyphicon glyphicon-pencil"></span>
+            <td><span style="margin: 5px;cursor: pointer;" @click.prevent="editaConta(o)" sty  title="Editar" aria-hidden="true" class="glyphicon glyphicon-pencil"></span>
                 <span @click.prevent="excluiConta(index);" title="Exluir" aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                <span @click.prevent="excluiConta(index);" title="Marcar como paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
+                <span @click.prevent="excluiConta(index);" title="Marcar como não paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-down"></span>
+
+
+
              </td>
         </tr>
         </tbody>
