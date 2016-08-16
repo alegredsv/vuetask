@@ -11,16 +11,26 @@
             margin: 0 auto;
             float: none;
         }
+        .statusRed {
+            color: red;
+        }
+        .statusGreen {
+            color: green;
+        }
+        .statusGray {
+            color: gray;
+        }
     </style>
 </head>
 <body id="app" >
 <div  class="container centralizado">
 
-<h1>{{ title }}</h1>
-<h3>{{status }}</h3>
+<h1 >{{ title }}</h1>
+<h3  :class="{'statusGray':  bills.length == 0 ,'statusRed':(billCount > 0 && bills.length > 0), 'statusGreen' : billCount <= 0 &&  bills.length > 0}">{{ status }}</h3>
 <nav>
     <ul>
-        <li v-for="o in menus"><a href="#" @click.prevent="showView($event,o.id)">{{ o.name }}</a></li>
+        <li><a href="#" @click.prevent="showView(0)">Listar contas</a></li>
+        <li><a href="#" @click.prevent="novaConta()">Nova conta</a></li>
     </ul>
 </nav>
 <div v-if="activedView == 0" class="col-xs-12 col-md-8">
@@ -42,13 +52,10 @@
             <td>{{ o.name }}</td>
             <td>{{ o.value | currency 'R$ '}}</td>
             <td>{{ o.done | doneLabel }}</td>
-            <td><span style="margin: 5px;cursor: pointer;" @click.prevent="editaConta(o)" sty  title="Editar" aria-hidden="true" class="glyphicon glyphicon-pencil"></span>
+            <td><span style="margin: 5px;cursor: pointer;" @click.prevent="editaConta(o)"   title="Editar" aria-hidden="true" class="glyphicon glyphicon-pencil"></span>
                 <span @click.prevent="excluiConta(index);" title="Exluir" aria-hidden="true" class="glyphicon glyphicon-remove"></span>
-                <span @click.prevent="excluiConta(index);" title="Marcar como paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
-                <span @click.prevent="excluiConta(index);" title="Marcar como não paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-down"></span>
-
-
-
+                <span @click.prevent="baixaConta(o, 1, index);" title="Marcar como paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
+                <span @click.prevent="baixaConta(o, 0, index);" title="Marcar como não paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-down"></span>
              </td>
         </tr>
         </tbody>
