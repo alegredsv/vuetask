@@ -45,7 +45,6 @@ var menuComponent = Vue.extend({
 
 
 });
-Vue.component('menu-component', menuComponent);
 
 var billListComponent = Vue.extend({
     template:` <table class="table">
@@ -95,7 +94,7 @@ var billListComponent = Vue.extend({
         excluiConta: function (index) {
             var confimra = confirm("Deseja excluir a conta?");
             if (index > -1 && confimra) {
-                this.$parent.bills.splice(index, 1);
+                this.$parent.$children[1].bills.splice(index, 1);
             }
             this.$parent.activedView = 0;
         },
@@ -104,11 +103,65 @@ var billListComponent = Vue.extend({
             this.$parent.bills[index] = bill;
         }
     }
-
-
 });
-Vue.component('bill-list-component', billListComponent);
+
+var billCreateComponent = Vue.extend({
+    template: `
+               <form name="form-control" @submit.prevent="submit">
+                        <div class="form-group">
+                            <label for="vencimento">Vencimento</label>
+                            <input type="text" style="width: 200px;" class="form-control" v-model="bill.date_due" id="vencimento" placeholder="00/00/0000">
+                        </div>
+                        <div class="form-group ">
+                            <label for="nome">Nome</label>
+                            <select v-model="bill.name" style="width: 200px;" id="nome" placeholder="Nome" class="form-control">
+                                <option v-for="o in names" value="{{ o }}">{{o}}</option>
+                            </select>
+                        </div>
+                
+                        <div class="form-group ">
+                            <label for="valor">Valor</label>
+                            <input type="text" style="width: 200px;" class="form-control"v-model="bill.value" id="valor" placeholder="Valor">
+                        </div>
+                        <input type="submit" value="Enviar">
+                    </form>
+    `,
+    props:['bill', 'formType'],
+    data:function () {
+        return{
+            names: [
+                'Conta de luz',
+                'Conta de água',
+                'Conta de telefone',
+                'Supermercado',
+                'Cartão de crédito',
+                'Empréstimo',
+                'Gasolina'
+            ],
+        };
+    },
+    methods:{
+        submit: function () {
+            if(this.formType == 'insert') {
+                this.$parent.$children[1].bills.push(this.bill);
+            }
+            this.bill = {
+                date_due: '',
+                name: '',
+                value: 0,
+                done: 0
+            };
+            this.$parent.activedView = 0;
+        }
+    }
+});
+
 var appComponent = Vue.extend({
+    components:{
+        'menu-component': menuComponent,
+        'bill-list-component' : billListComponent,
+        'bill-create-component': billCreateComponent
+    },
     template:`
             <style>
         .centralizado {
@@ -130,28 +183,11 @@ var appComponent = Vue.extend({
                 <h1 >{{ title }}</h1>
                 <h3  :class="{'statusGray':  bills.length == 0 ,'statusRed':(billCount > 0 && bills.length > 0), 'statusGreen' : billCount <= 0 &&  bills.length > 0}">{{ status }}</h3>
                 <menu-component></menu-component>
-                <div v-if="activedView == 0" class="col-xs-12 col-md-8">
+                <div v-show="activedView == 0" class="col-xs-12 col-md-8">
                         <bill-list-component></bill-list-component>
                 </div>
-                <div v-if="activedView == 1" class="col-xs-12 col-md-8">
-                    <form name="form-control" @submit.prevent="submit">
-                        <div class="form-group">
-                            <label for="vencimento">Vencimento</label>
-                            <input type="text" style="width: 200px;" class="form-control" v-model="bill.date_due" id="vencimento" placeholder="00/00/0000">
-                        </div>
-                        <div class="form-group ">
-                            <label for="nome">Nome</label>
-                            <select v-model="bill.name" style="width: 200px;" id="nome" placeholder="Nome" class="form-control">
-                                <option v-for="o in names" value="{{ o }}">{{o}}</option>
-                            </select>
-                        </div>
-                
-                        <div class="form-group ">
-                            <label for="valor">Valor</label>
-                            <input type="text" style="width: 200px;" class="form-control"v-model="bill.value" id="valor" placeholder="Valor">
-                        </div>
-                        <input type="submit" value="Enviar">
-                    </form>
+                <div v-show="activedView == 1" class="col-xs-12 col-md-8">
+                <bill-create-component :bill.sync="bill" :form-type="formType"></bill-create-component>
                 </div>
                 </div>`,
     data: function() {
@@ -168,15 +204,7 @@ var appComponent = Vue.extend({
         },
         billCount: 0,
         formType: 'insert',
-        names: [
-            'Conta de luz',
-            'Conta de água',
-            'Conta de telefone',
-            'Supermercado',
-            'Cartão de crédito',
-            'Empréstimo',
-            'Gasolina'
-        ],
+
         /*  bills:[{date_due:'20/08/2016', name: 'Conta de luz', value:127.99,done:1},
          {date_due:'21/08/2016', name: 'Conta de água', value:40.99,done:0},
          {date_due:'22/08/2016', name: 'Conta de telefone', value:55.99,done:0},
@@ -199,29 +227,10 @@ var appComponent = Vue.extend({
             this.billCount = count;
             return !count ? 'Nenhuma conta a pagar' : 'Existem ' + count + ' contas a pagar';
         }
-    },
-    methods: {
-
-
-        submit: function () {
-            if(this.formType == 'insert') {
-                this.bills.push(this.bill);
-            }
-            this.bill = {
-                date_due: '',
-                name: '',
-                value: 0,
-                done: 0
-            };
-            this.activedView = 0;
-        },
-
     }
-
 });
 Vue.component("app-component", appComponent);
 var app = new Vue({
-    el: "#app",
-
+    el: "#app"
 });
 
