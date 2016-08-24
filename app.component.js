@@ -4,8 +4,6 @@
 window.appComponent = Vue.extend({
     components:{
         'menu-component': menuComponent,
-        'bill-list-component' : billListComponent,
-        'bill-create-component': billCreateComponent
     },
     template:`
             <style>
@@ -42,7 +40,7 @@ window.appComponent = Vue.extend({
             teste: '',
             title: "Contas a pagar",
 
-            activedView: 0,
+
             bill: {
                 date_due: '',
                 name: '',
@@ -60,14 +58,16 @@ window.appComponent = Vue.extend({
              {date_due:'25/08/2016', name: 'Empréstimo', value:25.99,done:1},
              {date_due:'26/08/2016', name: 'Gasolina', value:155.99,done:0}]*/
 
-            bills: []
+           // bills: []
         };
     },
     computed: {
         status: function () {
+
+
             var count = 0;
-            var billListComponent = this.$refs.billListComponent;
-            console.log(billListComponent.bills);
+            var billListComponent =  this.$root.$children[0];
+
             for (var i in billListComponent.bills) {
                 if (!billListComponent.bills[i].done) {
                     count++;
@@ -76,21 +76,5 @@ window.appComponent = Vue.extend({
             this.billCount = count;
             return !count ? 'Nenhuma conta a pagar' : 'Existem ' + count + ' contas a pagar';
         }
-    },
-    events:{
-        'change-activedview': function (activedView) {
-            this.activedView = activedView;
-        },
-        'change-formtype': function (formType) {
-            //this.formType = formType;
-            this.$broadcast('change-formtype',formType);
-        },
-        'change-bill': function (bill) {
-            this.$broadcast('change-bill',bill);
-        },
-        'new-bill': function (bill) {
-            this.$broadcast('new-bill',bill);
-        }
-
     }
 });
