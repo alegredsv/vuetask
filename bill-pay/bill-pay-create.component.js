@@ -2,7 +2,7 @@
  * Created by awichmann on 23/08/2016.
  */
 
-window.billCreateComponent = Vue.extend({
+window.billPayCreateComponent = Vue.extend({
     template: `
                <form name="form-control" @submit.prevent="submit">
                         <div class="form-group">
@@ -39,7 +39,7 @@ window.billCreateComponent = Vue.extend({
         };
     },
     created:function () {
-      if(this.$route.name == 'bill.update'){
+      if(this.$route.name == 'bill-pay.update'){
           this.formType = 'update';
           this.getBill(this.$route.params.index);
           return;
@@ -50,7 +50,7 @@ window.billCreateComponent = Vue.extend({
         submit: function () {
             if(this.formType == 'insert') {
                 // this.$parent.$refs.billListComponent.bills.push(this.bill);
-                this.$root.$children[0].bills.push(this.bill);
+                this.$root.$children[0].billsPay.push(this.bill);
                // this.$dispatch('new-bill', this.bill);
             }
             this.bill = {
@@ -59,10 +59,10 @@ window.billCreateComponent = Vue.extend({
                 value: 0,
                 done: 0
             };
-            this.$router.go({name:'bill.list'});
+            this.$router.go({name:'bill-pay.list'});
         },
         getBill:function(index){
-            var bills = this.$root.$children[0].bills;
+            var bills = this.$root.$children[0].billsPay;
             this.bill = bills[index];
         }
     }

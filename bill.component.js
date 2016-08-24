@@ -1,7 +1,7 @@
 /**
  * Created by awichmann on 23/08/2016.
  */
-window.menuComponent = Vue.extend({
+window.billComponent = Vue.extend({
     template: `
          <nav>
                     <ul>
@@ -13,14 +13,16 @@ window.menuComponent = Vue.extend({
                         <li><a href="#" @click.prevent="novaConta()">Nova conta</a></li>
       -->              </ul>
                 </nav>
+                
+                <router-view></router-view>
         `,
     data: function () {
         return{
             menus: [
                 // {id: 0, name: "Listar contas", url:"/bills"},
                 // {id: 1, name: "Criar contas", url:"/bill/create"}
-                {id: 0, name: "Listar contas", routeName:"bill.list"},
-                {id: 1, name: "Criar contas", routeName:"bill.create"}
+                {id: 0, name: "Contas a pagar", routeName:"bill-pay.list"},
+                {id: 1, name: "Contas a receber", routeName:"bill-receive"}
             ],
         };
     }

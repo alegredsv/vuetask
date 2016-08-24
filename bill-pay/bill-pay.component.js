@@ -1,9 +1,9 @@
 /**
  * Created by awichmann on 23/08/2016.
  */
-window.appComponent = Vue.extend({
+window.billPayComponent = Vue.extend({
     components:{
-        'menu-component': menuComponent,
+        'menu-component': billPayMenuComponent
     },
     template:`
             <style>
@@ -68,8 +68,8 @@ window.appComponent = Vue.extend({
             var count = 0;
             var billListComponent =  this.$root.$children[0];
 
-            for (var i in billListComponent.bills) {
-                if (!billListComponent.bills[i].done) {
+            for (var i in billListComponent.billsPay) {
+                if (!billListComponent.billsPay[i].done) {
                     count++;
                 }
             }
