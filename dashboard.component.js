@@ -2,10 +2,10 @@
 /**
  * Created by awichmann on 23/08/2016.
  */
-window.billReceiveComponent = Vue.extend({
-    components:{
+window.dashboardComponent = Vue.extend({
+   /* components:{
        'menu-component': billReceiveMenuComponent
-    },
+    },*/
     template:`
            <style>
         .centralizado {
@@ -24,30 +24,34 @@ window.billReceiveComponent = Vue.extend({
     </style>
             <div  class="container centralizado">
 
-            <h1 >{{ title }}</h1>
-            <h3  :class="{'statusGray':  bills.length == 0 ,'statusRed':(billCount > 0 && bills.length > 0), 'statusGreen' : billCount <= 0 &&  bills.length > 0}">{{ status }}</h3>
-            <menu-component></menu-component>
-            <router-view></router-view>
-  
+                <h1 >{{ title }}</h1>
+                   <h3 style="color: red" >Total de contas a pagar: {{ vlPay }}</h3>
+                   <h3 style="color: green" >Total de contas a receber: {{ vlReceive }}</h3>
+                    <h2 style="color: blue">SALDO : {{vlReceive - vlPay}}</h2>
                 `,
     data: function() {
         return{
-            teste: '',
-            title: "Contas a receber",
-            bill: {
-                date_due: '',
-                name: '',
-                value: 0,
-                done: 0,
-                receive: ''
-            },
+           title: "Dashboard",
             billCount: 0,
             billTotalReceive: 0,
-
+            billTotalPay:0
         };
     },
     computed: {
-        status: function () {
+        vlPay: function () {
+            var count = 0;
+            var billListComponent =  this.$root.$children[0];
+
+            for (var i in billListComponent.billsPay) {
+                if (!billListComponent.billsPay[i].done) {
+                    this.billTotalPay+=billListComponent.billsPay[i].value;
+                    count++;
+                }
+            }
+            this.billCount = count;
+            return this.billTotalPay;
+        },
+        vlReceive: function () {
 
 
             var count = 0;
@@ -55,13 +59,12 @@ window.billReceiveComponent = Vue.extend({
 
             for (var i in billListComponent.billsReceive) {
                 if (!billListComponent.billsReceive[i].done) {
-                    count++;
-                }else{
                     this.billTotalReceive+=billListComponent.billsReceive[i].value;
+                    count++;
                 }
             }
             this.billCount = count;
-            return !count ? 'Nenhuma conta a pagar' : 'Existem ' + count + ' contas não recebidas';
+            return this.billTotalReceive;
         }
     }
 });

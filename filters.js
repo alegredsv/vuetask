@@ -8,3 +8,11 @@ Vue.filter("doneLabel", function (value) {
         return 'Paga';
     }
 });
+
+Vue.filter("receiveLabel", function (value) {
+    if (value == 0) {
+        return 'Não';
+    } else {
+        return 'Sim';
+    }
+});
