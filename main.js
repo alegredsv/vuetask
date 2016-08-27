@@ -5,7 +5,7 @@
 // var app = new Vue({
 //     el: "#app"
 // });
-var mainComponent  = Vue.extend({
+/*var mainComponent  = Vue.extend({
     components:{
         'bill-component' : billComponent
     },
@@ -28,7 +28,7 @@ var mainComponent  = Vue.extend({
                 {date_due:'26/08/2016', name: 'Vivo', value:888.99,done:0, service:"Configuração de servidor"}]
         };
     }
-});
+});*/
 
 var router = new VueRouter();
 
@@ -44,7 +44,7 @@ router.map({
                 name:'bill-pay.create',
                 component: billPayCreateComponent
             },
-            '/:index/update':{
+            '/:id/update':{
                 name:'bill-pay.update',
                 component: billPayCreateComponent
             }
@@ -67,7 +67,7 @@ router.map({
                 name:'bill-receive.create',
                 component: billReceiveCreateComponent
             },
-            '/:index/update':{
+            '/:id/update':{
                 name:'bill-receive.update',
                 component: billReceiveCreateComponent
             }
@@ -83,7 +83,7 @@ router.map({
 });
 router.start({
     components:{
-        'main-component': mainComponent
+        'bill-component': billComponent
     }
 }, "#app");
 
