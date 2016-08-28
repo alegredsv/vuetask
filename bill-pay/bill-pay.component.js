@@ -24,7 +24,7 @@ window.billPayComponent = Vue.extend({
             <div  class="container centralizado">
 
                 <h1 >{{ title }}</h1>
-                <h3  :class="{'statusGray':  bills.length == 0 ,'statusRed':(billCount > 0 && bills.length > 0), 'statusGreen' : billCount <= 0 &&  bills.length > 0}">{{ status }}</h3>
+                <h3  :class="{'statusGray':  bills.length == 0 ,'statusRed':(status > 0 && bills.length > 0), 'statusGreen' : status <= 0 &&  bills.length > 0}">{{ status }}</h3>
                 <menu-component></menu-component>
                 <router-view></router-view>
                <!-- <div v-show="activedView == 0" class="col-xs-12 col-md-8">
@@ -35,18 +35,14 @@ window.billPayComponent = Vue.extend({
                 </div>
                 </div>-->
                 `,
+    http:{
+        root :'http://192.168.10.10:8000/api'
+    },
     data: function() {
         return{
             teste: '',
             title: "Contas a pagar",
-
-
-            bill: {
-                date_due: '',
-                name: '',
-                value: 0,
-                done: 0
-            },
+            status : false,
             billCount: 0,
 
 
@@ -61,7 +57,7 @@ window.billPayComponent = Vue.extend({
            // bills: []
         };
     },
-    computed: {
+   /* computed: {
         status: function () {
 
 
@@ -76,5 +72,35 @@ window.billPayComponent = Vue.extend({
             this.billCount = count;
             return !count ? 'Nenhuma conta a pagar' : 'Existem ' + count + ' contas a pagar';
         }
+    }*/
+    created: function () {
+     this.updateStatus();
+    },
+    methods:{
+        
+        caculateStatus: function (bills) {
+
+            if(!bills.length){
+                this.status = false
+            }
+
+            var count = 0;
+            var billListComponent =  this.$root.$children[0];
+
+            for (var i in bills) {
+                if (!bills[i].done) {
+                    count++;
+                }
+            }
+            this.status = count;
+            return !count ? 'Nenhuma conta a pagar' : 'Existem ' + count + ' contas a pagar';
+
+        },
+        updateStatus:function () {
+            this.$http.get('bills').then(function(response){
+                this.caculateStatus(response.data);
+            })
+        }
+        
     }
 });

@@ -23,9 +23,9 @@ window.billPayListComponent = Vue.extend({
                             <td>
                                <!-- <span style="margin: 5px;cursor: pointer;" @click.prevent="editaConta(o)"   title="Editar" aria-hidden="true" class="glyphicon glyphicon-pencil"></span>-->
                                <span style="margin: 5px;cursor: pointer;" v-link="{name: 'bill-pay.update', params:{id:o.id}}"  title="Editar" aria-hidden="true" class="glyphicon glyphicon-pencil"></span>
-                               <span @click.prevent="excluiConta(index);" title="Exluir" aria-hidden="true" class="glyphicon glyphicon-remove"></span>
-                                <span @click.prevent="baixaConta(o, 1, index);" title="Marcar como paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
-                                <span @click.prevent="baixaConta(o, 0, index);" title="Marcar como não paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-down"></span>
+                               <span @click.prevent="excluiConta(o);" title="Exluir" aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+                                <span @click.prevent="baixaConta(o, 1, o.id);" title="Marcar como paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
+                                <span @click.prevent="baixaConta(o, 0, o.id);" title="Marcar como não paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-down"></span>
                              </td>
                         </tr>
                         </tbody>
@@ -45,11 +45,12 @@ window.billPayListComponent = Vue.extend({
         })
     },
     methods:{
-         excluiConta: function (index) {
+         excluiConta: function (bill) {
             var confimra = confirm("Deseja excluir a conta?");
-            if (index > -1 && confimra) {
+            if (bill.id > -1 && confimra) {
               //  this.$root.$children[0].billsPay.splice(index, 1);
-                this.$http.delete('bills/'+this.bill.id).then(function(response){
+                this.$http.delete('bills/'+bill.id ).then(function(response){
+                    this.bills.$remove(bill);
                     this.$router.go({name:'bill-pay.list'});
                 });
             }
@@ -57,7 +58,12 @@ window.billPayListComponent = Vue.extend({
         },
         baixaConta: function (bill, status, index) {
             bill.done = status;
-            this.$root.$children[0].billsPay[index] = bill;
+           // this.$root.$children[0].billsPay[index] = bill;
+            this.$http.put('bills/'+bill.id,bill).then(function(response){
+                this.$router.go({name:'bill-pay.list'});
+            });
+
+
         }
     }
 });
