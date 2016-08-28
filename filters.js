@@ -16,3 +16,14 @@ Vue.filter("receiveLabel", function (value) {
         return 'Sim';
     }
 });
+
+
+Vue.filter("totalLabel", function (value) {
+
+    return !value ? 'Nenhuma conta a pagar' : 'Existem ' + value + ' contas a pagar';
+   /* if (value == 0) {
+        return 'Não';
+    } else {
+        return 'Sim';
+    }*/
+});

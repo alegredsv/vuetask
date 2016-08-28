@@ -24,7 +24,7 @@ window.billPayComponent = Vue.extend({
             <div  class="container centralizado">
 
                 <h1 >{{ title }}</h1>
-                <h3  :class="{'statusGray':  bills.length == 0 ,'statusRed':(status > 0 && bills.length > 0), 'statusGreen' : status <= 0 &&  bills.length > 0}">{{ status }}</h3>
+                <h3  :class="{'statusGray':  bills.length == 0 ,'statusRed':(status > 0 && bills.length > 0), 'statusGreen' : status <= 0 &&  bills.length > 0}">{{ status | totalLabel}}</h3>
                 <menu-component></menu-component>
                 <router-view></router-view>
                <!-- <div v-show="activedView == 0" class="col-xs-12 col-md-8">
@@ -88,18 +88,26 @@ window.billPayComponent = Vue.extend({
             var billListComponent =  this.$root.$children[0];
 
             for (var i in bills) {
+                console.log(bills[i]);
                 if (!bills[i].done) {
+
                     count++;
                 }
             }
             this.status = count;
-            return !count ? 'Nenhuma conta a pagar' : 'Existem ' + count + ' contas a pagar';
+
 
         },
         updateStatus:function () {
             this.$http.get('bills').then(function(response){
                 this.caculateStatus(response.data);
-            })
+            });
+        }
+        
+    },
+    events:{
+        'change-status':function () {
+            this.updateStatus();
         }
         
     }
