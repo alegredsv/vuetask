@@ -23,9 +23,7 @@ window.billPayCreateComponent = Vue.extend({
                         <input type="submit" value="Enviar">
                     </form>
     `,
-    http:{
-        root :'http://192.168.10.10:8000/api'
-    },
+
     props:['bill'],
     data:function () {
         return{
@@ -51,28 +49,31 @@ window.billPayCreateComponent = Vue.extend({
     },
     methods:{
         submit: function () {
-            var resource = this.$resource('bills{/id}');
+           // var resource = this.$resource('bills{/id}');
+            var self = this;
             if(this.formType == 'insert') {
                 // this.$parent.$refs.billListComponent.bills.push(this.bill);
               //  this.$root.$children[0].billsPay.push(this.bill);
                // this.$dispatch('new-bill', this.bill);
 
-                    resource.save({},this.bill).then(function(response){
-                    this.$dispatch('change-status');
-                    this.$router.go({name:'bill-pay.list'});
+                    Bill.save({},this.bill).then(function(response){
+                    self.$dispatch('change-info');
+                    self.$router.go({name:'bill-pay.list'});
 
                 });
             }else{
-                resource.update({id:this.bill.id},this.bill).then(function(response){
-                    this.$dispatch('change-status');
-                    this.$router.go({name:'bill-pay.list'});
+                var self = this;
+                Bill.update({id:this.bill.id},this.bill).then(function(response){
+                    self.$dispatch('change-info');
+                    self.$router.go({name:'bill-pay.list'});
                 });
             }
         },
         getBill:function(id){
-            var resource = this.$resource('bills{/id}');
-            resource.get({id:id}).then(function(response){
-                this.bill = response.data;
+           // var resource = this.$resource('bills{/id}');
+            var self = this;
+            Bill.get({id:id}).then(function(response){
+                self.bill = response.data;
             })
 
        /*     var bills = this.$root.$children[0].billsPay;

@@ -24,6 +24,7 @@ window.billPayComponent = Vue.extend({
             <div  class="container centralizado">
 
                 <h1 >{{ title }}</h1>
+                <h3>{{ total | currency 'R$ '}}</h3>
                 <h3  :class="{'statusGray':  bills.length == 0 ,'statusRed':(status > 0 && bills.length > 0), 'statusGreen' : status <= 0 &&  bills.length > 0}">{{ status | totalLabel}}</h3>
                 <menu-component></menu-component>
                 <router-view></router-view>
@@ -35,9 +36,7 @@ window.billPayComponent = Vue.extend({
                 </div>
                 </div>-->
                 `,
-    http:{
-        root :'http://192.168.10.10:8000/api'
-    },
+
     data: function() {
         return{
             teste: '',
@@ -45,6 +44,7 @@ window.billPayComponent = Vue.extend({
             status : false,
             billCount: 0,
 
+            total: 0,
 
             /*  bills:[{date_due:'20/08/2016', name: 'Conta de luz', value:127.99,done:1},
              {date_due:'21/08/2016', name: 'Conta de água', value:40.99,done:0},
@@ -75,6 +75,7 @@ window.billPayComponent = Vue.extend({
     }*/
     created: function () {
      this.updateStatus();
+        this.updateTotal();
     },
     methods:{
         
@@ -88,7 +89,7 @@ window.billPayComponent = Vue.extend({
             var billListComponent =  this.$root.$children[0];
 
             for (var i in bills) {
-                console.log(bills[i]);
+
                 if (!bills[i].done) {
 
                     count++;
@@ -99,16 +100,23 @@ window.billPayComponent = Vue.extend({
 
         },
         updateStatus:function () {
-            this.$http.get('bills').then(function(response){
-                this.caculateStatus(response.data);
+            self = this;
+            Bill.query().then(function(response){
+                self.caculateStatus(response.data);
+            });
+        },
+        updateTotal:function () {
+            self = this;
+            Bill.total().then(function(response){
+                self.total = response.data.total;
             });
         }
         
     },
     events:{
-        'change-status':function () {
+        'change-info':function () {
             this.updateStatus();
+            this.updateTotal();
         }
-        
     }
 });

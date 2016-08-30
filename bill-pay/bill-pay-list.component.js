@@ -31,40 +31,41 @@ window.billPayListComponent = Vue.extend({
                         </tbody>
                     </table>
                 `,
-    http:{
-        root :'http://192.168.10.10:8000/api'
-    },
+
     data:function () {
         return{
           bills: []
         };
     },
     created:function() {
-        var resource = this.$resource('bills{/id}');
-        resource.query().then(function(response){
-            this.bills = response.data;
+       // var resource = this.$resource('bills{/id}');
+        var self = this;
+        Bill.query().then(function(response){
+            self.bills = response.data;
         })
     },
     methods:{
          excluiConta: function (bill) {
-             var resource = this.$resource('bills{/id}');
+             //var resource = this.$resource('bills{/id}');
+             var self = this;
             var confimra = confirm("Deseja excluir a conta?");
             if (bill.id > -1 && confimra) {
               //  this.$root.$children[0].billsPay.splice(index, 1);
-                resource.delete({'id':bill.id}).then(function(response){
-                    this.bills.$remove(bill);
-                    this.$router.go({name:'bill-pay.list'});
+                Bill.delete({'id':bill.id}).then(function(response){
+                    self.bills.$remove(bill);
+                    self.$router.go({name:'bill-pay.list'});
                 });
-                this.$dispatch('change-status');
+                self.$dispatch('change-info');
             }
 
         },
         baixaConta: function (bill, status, index) {
             bill.done = status;
            // this.$root.$children[0].billsPay[index] = bill;
-            this.$http.put('bills/'+bill.id,bill).then(function(response){
-                this.$dispatch('change-status');
-                this.$router.go({name:'bill-pay.list'});
+            var self = this;
+            Bill.put('bills/'+bill.id,bill).then(function(response){
+                self.$dispatch('change-info');
+                self.$router.go({name:'bill-pay.list'});
             });
 
 
