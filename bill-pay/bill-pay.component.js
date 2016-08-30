@@ -74,7 +74,7 @@ window.billPayComponent = Vue.extend({
         }
     }*/
     created: function () {
-     this.updateStatus();
+        this.updateStatus();
         this.updateTotal();
     },
     methods:{

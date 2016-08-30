@@ -43,10 +43,12 @@ window.billReceiveComponent = Vue.extend({
             },
             billCount: 0,
             billTotalReceive: 0,
+            total: 0,
+            status: false
 
         };
     },
-    computed: {
+/*    computed: {
         status: function () {
 
 
@@ -62,6 +64,52 @@ window.billReceiveComponent = Vue.extend({
             }
             this.billCount = count;
             return !count ? 'Nenhuma conta a pagar' : 'Existem ' + count + ' contas não recebidas';
+        }
+    }*/
+    created: function () {
+        this.updateStatus();
+        this.updateTotal();
+    },
+    methods:{
+
+        caculateStatus: function (bills) {
+
+            if(!bills.length){
+                this.status = false
+            }
+
+            var count = 0;
+            var billListComponent =  this.$root.$children[0];
+
+            for (var i in bills) {
+
+                if (!bills[i].done) {
+
+                    count++;
+                }
+            }
+            this.status = count;
+
+
+        },
+        updateStatus:function () {
+            self = this;
+            BillReceived.query().then(function(response){
+                self.caculateStatus(response.data);
+            });
+        },
+        updateTotal:function () {
+            self = this;
+            BillReceived.total().then(function(response){
+                self.total = response.data.total;
+            });
+        }
+
+    },
+    events:{
+        'change-info':function () {
+            this.updateStatus();
+            this.updateTotal();
         }
     }
 });
