@@ -26,8 +26,8 @@ window.billReceiveListComponent = Vue.extend({
                                <!-- <span style="margin: 5px;cursor: pointer;" @click.prevent="editaConta(o)"   title="Editar" aria-hidden="true" class="glyphicon glyphicon-pencil"></span>-->
                                <span style="margin: 5px;cursor: pointer;" v-link="{name: 'bill-receive.update', params:{id:o.id}}"  title="Editar" aria-hidden="true" class="glyphicon glyphicon-pencil"></span>
                                <span @click.prevent="excluiConta(o);" title="Exluir" aria-hidden="true" class="glyphicon glyphicon-remove"></span>
-                                <span @click.prevent="baixaConta(o, 1, index);" title="Marcar como paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
-                                <span @click.prevent="baixaConta(o, 0, index);" title="Marcar como não paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-down"></span>
+                                <span @click.prevent="baixaConta(o, true, index);" title="Marcar como paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
+                                <span @click.prevent="baixaConta(o, false, index);" title="Marcar como não paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-down"></span>
                              </td>
                         </tr>
                         </tbody>
@@ -48,18 +48,28 @@ window.billReceiveListComponent = Vue.extend({
         })
     },
     methods:{
-         excluiConta: function (index) {
+         excluiConta: function (bill) {
              var self = this;
             var confimra = confirm("Deseja excluir a conta?");
-            if (index > -1 && confimra) {
-                this.$root.$children[0].billsReceive.splice(index, 1);
+            if (bill.id > -1 && confimra) {
+              //  this.$root.$children[0].billsReceive.splice(index, 1);
+                BillReceived.delete({'id':bill.id}).then(function(response){
+                    self.bills.$remove(bill);
+                    self.$router.go({name:'bill-receive.list'});
+                });
+                self.$dispatch('change-info-receive');
 
             }
 
         },
         baixaConta: function (bill, status, index) {
             bill.done = status;
-            this.$root.$children[0].billsReceive[index] = bill;
+            // this.$root.$children[0].billsPay[index] = bill;
+            var self = this;
+            BillReceived.put('bills/'+bill.id,bill).then(function(response){
+                self.$dispatch('change-info-receive');
+                self.$router.go({name:'bill-receive.list'});
+            });
         }
     }
 });

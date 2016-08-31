@@ -25,7 +25,7 @@ window.billReceiveComponent = Vue.extend({
             <div  class="container centralizado">
 
             <h1 >{{ title }}</h1>
-            <h3  :class="{'statusGray':  bills.length == 0 ,'statusRed':(billCount > 0 && bills.length > 0), 'statusGreen' : billCount <= 0 &&  bills.length > 0}">{{ status }}</h3>
+            <h3  :class="{'statusGray':  bills.length == 0 ,'statusRed':(billCount > 0 && bills.length > 0), 'statusGreen' : billCount <= 0 &&  bills.length > 0}">{{ status | totalLabel }}</h3>
             <menu-component></menu-component>
             <router-view></router-view>
   
@@ -107,7 +107,7 @@ window.billReceiveComponent = Vue.extend({
 
     },
     events:{
-        'change-info':function () {
+        'change-info-receive':function () {
             this.updateStatus();
             this.updateTotal();
         }
