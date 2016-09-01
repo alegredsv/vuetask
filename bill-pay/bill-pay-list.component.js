@@ -63,7 +63,7 @@ window.billPayListComponent = Vue.extend({
             bill.done = status;
            // this.$root.$children[0].billsPay[index] = bill;
             var self = this;
-            Bill.put('bills/'+bill.id,bill).then(function(response){
+            Bill.update({id:bill.id},bill).then(function(response){
                 self.$dispatch('change-info');
                 self.$router.go({name:'bill-pay.list'});
             });

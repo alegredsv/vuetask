@@ -55,10 +55,10 @@ window.billReceiveListComponent = Vue.extend({
               //  this.$root.$children[0].billsReceive.splice(index, 1);
                 BillReceived.delete({'id':bill.id}).then(function(response){
                     self.bills.$remove(bill);
+                    self.$dispatch('change-info-receive');
                     self.$router.go({name:'bill-receive.list'});
                 });
-                self.$dispatch('change-info-receive');
-
+     
             }
 
         },
@@ -66,7 +66,7 @@ window.billReceiveListComponent = Vue.extend({
             bill.done = status;
             // this.$root.$children[0].billsPay[index] = bill;
             var self = this;
-            BillReceived.put('bills/'+bill.id,bill).then(function(response){
+            BillReceived.update({id:bill.id},bill).then(function(response){
                 self.$dispatch('change-info-receive');
                 self.$router.go({name:'bill-receive.list'});
             });

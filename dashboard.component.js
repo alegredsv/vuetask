@@ -49,7 +49,12 @@ window.dashboardComponent = Vue.extend({
                 }
             }
             this.billCount = count;
-            return this.billTotalPay;
+            self = this;
+            Bill.total().then(function(response){
+                self.billTotalPay = response.data.total;
+            });
+            return self.billTotalPay;
+            //return this.billTotalPay;
         },
         vlReceive: function () {
 
@@ -64,7 +69,12 @@ window.dashboardComponent = Vue.extend({
                 }
             }
             this.billCount = count;
-            return this.billTotalReceive;
+
+            self = this;
+            BillReceived.total().then(function(response){
+                self.billTotalReceive = response.data.total;
+            });
+            return self.billTotalReceive;
         }
     }
 });
