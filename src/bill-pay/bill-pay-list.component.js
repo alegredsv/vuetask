@@ -39,7 +39,7 @@ window.billPayListComponent = Vue.extend({
     },
     created:function() {
        // var resource = this.$resource('bills{/id}');
-        var self = this;
+        let self = this;
         Bill.query().then(function(response){
             self.bills = response.data;
         })
@@ -47,8 +47,8 @@ window.billPayListComponent = Vue.extend({
     methods:{
          excluiConta: function (bill) {
              //var resource = this.$resource('bills{/id}');
-             var self = this;
-            var confimra = confirm("Deseja excluir a conta?");
+             let self = this;
+            let confimra = confirm("Deseja excluir a conta?");
             if (bill.id > -1 && confimra) {
               //  this.$root.$children[0].billsPay.splice(index, 1);
                 Bill.delete({'id':bill.id}).then(function(response){
@@ -62,7 +62,7 @@ window.billPayListComponent = Vue.extend({
         baixaConta: function (bill, status, index) {
             bill.done = status;
            // this.$root.$children[0].billsPay[index] = bill;
-            var self = this;
+            let self = this;
             Bill.update({id:bill.id},bill).then(function(response){
                 self.$dispatch('change-info');
                 self.$router.go({name:'bill-pay.list'});

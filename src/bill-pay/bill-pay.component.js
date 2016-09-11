@@ -85,10 +85,10 @@ window.billPayComponent = Vue.extend({
                 this.status = false
             }
 
-            var count = 0;
+            let count = 0;
             var billListComponent =  this.$root.$children[0];
 
-            for (var i in bills) {
+            for (let i in bills) {
 
                 if (!bills[i].done) {
 
@@ -100,13 +100,13 @@ window.billPayComponent = Vue.extend({
 
         },
         updateStatus:function () {
-            self = this;
+            let self = this;
             Bill.query().then(function(response){
                 self.caculateStatus(response.data);
             });
         },
         updateTotal:function () {
-            self = this;
+            let self = this;
             Bill.total().then(function(response){
                 self.total = response.data.total;
             });

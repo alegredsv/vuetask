@@ -52,7 +52,7 @@ window.billReceiveCreateComponent = Vue.extend({
     },
     methods:{
         submit: function () {
-            var self = this;
+            let self = this;
             if(self.formType == 'insert') {
                 // this.$parent.$refs.billListComponent.bills.push(this.bill);
                // this.$root.$children[0].billsReceive.push(this.bill);
@@ -73,7 +73,7 @@ window.billReceiveCreateComponent = Vue.extend({
 
         },
         getBill:function(id){
-            var self = this;
+            let self = this;
             BillReceived.get({id:id}).then(function(response){
                 self.bill = response.data;
             });
