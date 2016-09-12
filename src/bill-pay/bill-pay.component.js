@@ -24,7 +24,7 @@ window.billPayComponent = Vue.extend({
             <div  class="container centralizado">
 
                 <h1 >{{ title }}</h1>
-                <h3>{{ total | currency 'R$ '}}</h3>
+                <h3>{{ total | numberFormat }}</h3>
                 <h3  :class="{'statusGray':  bills.length == 0 ,'statusRed':(status > 0 && bills.length > 0), 'statusGreen' : status <= 0 &&  bills.length > 0}">{{ status | totalLabel}}</h3>
                 <menu-component></menu-component>
                 <router-view></router-view>

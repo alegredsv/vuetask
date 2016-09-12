@@ -19,7 +19,7 @@ window.billReceiveListComponent = Vue.extend({
                             <td>{{ index +1 }}</td>
                             <td>{{ o.name }}</td>
                             <td>{{ o.service }}</td>                        
-                            <td>{{ o.value | currency 'R$ '}}</td>
+                            <td>{{ o.value | numberFormat }}</td>
                             <td>{{ o.done | receiveLabel }}</td>
                               <td>{{ o.date_due }}</td>
                             <td>

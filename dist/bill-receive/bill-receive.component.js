@@ -7,7 +7,7 @@ window.billReceiveComponent = Vue.extend({
     components: {
         'menu-component': billReceiveMenuComponent
     },
-    template: '\n           <style>\n        .centralizado {\n            margin: 0 auto;\n            float: none;\n        }\n        .statusRed {\n            color: red;\n        }\n        .statusGreen {\n            color: green;\n        }\n        .statusGray {\n            color: gray;\n        }\n    </style>\n            <div  class="container centralizado">\n\n            <h1 >{{ title }}</h1>\n              <h1 >{{ total | currency \'R$ \' }}</h1>\n            <h3  :class="{\'statusGray\':  bills.length == 0 ,\'statusRed\':(billCount > 0 && bills.length > 0), \'statusGreen\' : billCount <= 0 &&  bills.length > 0}">{{ status | totalLabel }}</h3>\n            <menu-component></menu-component>\n            <router-view></router-view>\n  \n                ',
+    template: '\n           <style>\n        .centralizado {\n            margin: 0 auto;\n            float: none;\n        }\n        .statusRed {\n            color: red;\n        }\n        .statusGreen {\n            color: green;\n        }\n        .statusGray {\n            color: gray;\n        }\n    </style>\n            <div  class="container centralizado">\n\n            <h1 >{{ title }}</h1>\n              <h1 >{{ total | numberFormat }}</h1>\n            <h3  :class="{\'statusGray\':  bills.length == 0 ,\'statusRed\':(billCount > 0 && bills.length > 0), \'statusGreen\' : billCount <= 0 &&  bills.length > 0}">{{ status | totalLabel }}</h3>\n            <menu-component></menu-component>\n            <router-view></router-view>\n  \n                ',
     data: function data() {
         return {
             teste: '',

@@ -65,7 +65,34 @@ Vue.filter('numberFormat', {
     write: function write(value) {
         // pegar valor da view converter para armazenar no model
         var number = 0;
-        if (value > 0) {
+        if (value.length > 0) {
+            number = value.replace(/[^\d\,]/g, '').replace(/\,/g, '.');
+            number = isNaN(number) ? 0 : parseFloat(number);
+        }
+        return number;
+    }
+});
+
+Vue.filter('dateFormat', {
+    read: function read(value) {
+        //mostra info na view
+        if (value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) !== undefined) {
+            if (!(value instanceof Data)) {
+                var dataString = value.match(/\d{4}\-\d{2}\-\d{2}/g)[0] || null;
+                if (dataString) {
+                    value = new Date(dataString + "T03:00:00");
+                } else {
+                    return value;
+                }
+            }
+            return value.toLocaleString('pt-BR').split(' ')[0];
+        }
+        return value;
+    },
+    write: function write(value) {
+        // pegar valor da view converter para armazenar no model
+        var number = 0;
+        if (value.length > 0) {
             number = value.replace(/[^\d\,]/g, '').replace(/\,/g, '.');
             number = isNaN(number) ? 0 : parseFloat(number);
         }
