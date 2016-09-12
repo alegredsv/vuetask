@@ -26,6 +26,7 @@ window.billReceiveComponent = Vue.extend({
 
         };
     },
+
     /*    computed: {
             status: function () {
     
@@ -48,8 +49,8 @@ window.billReceiveComponent = Vue.extend({
         this.updateStatus();
         this.updateTotal();
     },
-    methods: {
 
+    methods: {
         caculateStatus: function caculateStatus(bills) {
 
             if (!bills.length) {
@@ -69,18 +70,19 @@ window.billReceiveComponent = Vue.extend({
             this.status = count;
         },
         updateStatus: function updateStatus() {
-            var self = this;
+            var _this = this;
+
             BillReceived.query().then(function (response) {
-                self.caculateStatus(response.data);
+                _this.caculateStatus(response.data);
             });
         },
         updateTotal: function updateTotal() {
-            var self = this;
+            var _this2 = this;
+
             BillReceived.total().then(function (response) {
-                self.total = response.data.total;
+                _this2.total = response.data.total;
             });
         }
-
     },
     events: {
         'change-info-receive': function changeInfoReceive() {

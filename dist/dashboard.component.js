@@ -48,7 +48,7 @@ window.dashboardComponent = Vue.extend({
             }
             this.billCount = count;
 
-            self = this;
+            var self = this;
             BillReceived.total().then(function (response) {
                 self.billTotalReceive = response.data.total;
             });

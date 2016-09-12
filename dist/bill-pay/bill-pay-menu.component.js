@@ -13,5 +13,4 @@ window.billPayMenuComponent = Vue.extend({
             { id: 0, name: "Listar contas", routeName: "bill-pay.list" }, { id: 1, name: "Criar contas", routeName: "bill-pay.create" }]
         };
     }
-
 });

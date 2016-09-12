@@ -33,42 +33,42 @@ window.billReceiveListComponent = Vue.extend({
                         </tbody>
                     </table>
                 `,
-    data:function () {
+    data() {
         return{
           bills: []
         };
     },
 
 
-    created:function() {
+    created() {
         // var resource = this.$resource('bills{/id}');
-        let self = this;
-        BillReceived.query().then(function(response){
-            self.bills = response.data;
+     
+        BillReceived.query().then((response)=>{
+            this.bills = response.data;
         })
     },
     methods:{
-         excluiConta: function (bill) {
-             let self = this;
+         excluiConta(bill) {
+
             let confimra = confirm("Deseja excluir a conta?");
             if (bill.id > -1 && confimra) {
               //  this.$root.$children[0].billsReceive.splice(index, 1);
-                BillReceived.delete({'id':bill.id}).then(function(response){
-                    self.bills.$remove(bill);
-                    self.$dispatch('change-info-receive');
-                    self.$router.go({name:'bill-receive.list'});
+                BillReceived.delete({'id':bill.id}).then((response)=>{
+                    this.bills.$remove(bill);
+                    this.$dispatch('change-info-receive');
+                    this.$router.go({name:'bill-receive.list'});
                 });
      
             }
 
         },
-        baixaConta: function (bill, status, index) {
+        baixaConta(bill, status, index) {
             bill.done = status;
             // this.$root.$children[0].billsPay[index] = bill;
-            let self = this;
-            BillReceived.update({id:bill.id},bill).then(function(response){
-                self.$dispatch('change-info-receive');
-                self.$router.go({name:'bill-receive.list'});
+
+            BillReceived.update({id:bill.id},bill).then((response) => {
+                this.$dispatch('change-info-receive');
+                this.$router.go({name:'bill-receive.list'});
             });
         }
     }

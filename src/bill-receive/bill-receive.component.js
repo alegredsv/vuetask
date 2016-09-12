@@ -31,7 +31,7 @@ window.billReceiveComponent = Vue.extend({
             <router-view></router-view>
   
                 `,
-    data: function() {
+    data() {
         return{
             teste: '',
             title: "Contas a receber",
@@ -67,13 +67,13 @@ window.billReceiveComponent = Vue.extend({
             return !count ? 'Nenhuma conta a pagar' : 'Existem ' + count + ' contas não recebidas';
         }
     }*/
-    created: function () {
+    created() {
         this.updateStatus();
         this.updateTotal();
     },
     methods:{
 
-        caculateStatus: function (bills) {
+        caculateStatus(bills) {
 
             if(!bills.length){
                 this.status = false
@@ -93,22 +93,22 @@ window.billReceiveComponent = Vue.extend({
 
 
         },
-        updateStatus:function () {
-            let self = this;
-            BillReceived.query().then(function(response){
-                self.caculateStatus(response.data);
+        updateStatus() {
+           
+            BillReceived.query().then((response)=>{
+                this.caculateStatus(response.data);
             });
         },
-        updateTotal:function () {
-            let self = this;
-            BillReceived.total().then(function(response){
-                self.total = response.data.total;
+        updateTotal() {
+
+            BillReceived.total().then((response) => {
+                this.total = response.data.total;
             });
         }
 
     },
     events:{
-        'change-info-receive':function () {
+        'change-info-receive'() {
             this.updateStatus();
             this.updateTotal();
         }

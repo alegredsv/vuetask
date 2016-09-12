@@ -28,7 +28,7 @@ window.billReceiveCreateComponent = Vue.extend({
                     </form>
     `,
     props:['bill'],
-    data:function () {
+    data() {
         return{
             formType: 'insert',
             service: [
@@ -42,7 +42,7 @@ window.billReceiveCreateComponent = Vue.extend({
             ],
         };
     },
-    created:function () {
+    created() {
       if(this.$route.name == 'bill-receive.update'){
           this.formType = 'update';
           this.getBill(this.$route.params.id);
@@ -51,31 +51,31 @@ window.billReceiveCreateComponent = Vue.extend({
        // this.formType = 'insert';
     },
     methods:{
-        submit: function () {
-            let self = this;
-            if(self.formType == 'insert') {
+        submit() {
+
+            if(this.formType == 'insert') {
                 // this.$parent.$refs.billListComponent.bills.push(this.bill);
                // this.$root.$children[0].billsReceive.push(this.bill);
                // this.$dispatch('new-bill', this.bill);
-                BillReceived.save({},this.bill).then(function(response){
-                    self.$dispatch('change-info-receive');
-                    self.$router.go({name:'bill-receive.list'});
+                BillReceived.save({},this.bill).then((response) => {
+                    this.$dispatch('change-info-receive');
+                    this.$router.go({name:'bill-receive.list'});
                 });
             }else{
 
-                BillReceived.update({id:this.bill.id},this.bill).then(function(response){
-                    self.$dispatch('change-info-receive');
-                    self.$router.go({name:'bill-receive.list'});
+                BillReceived.update({id:this.bill.id},this.bill).then((response) => {
+                    this.$dispatch('change-info-receive');
+                    this.$router.go({name:'bill-receive.list'});
                 });
 
             }
 
 
         },
-        getBill:function(id){
-            let self = this;
-            BillReceived.get({id:id}).then(function(response){
-                self.bill = response.data;
+        getBill(id){
+
+            BillReceived.get({id:id}).then((response)=>{
+                this.bill = response.data;
             });
             // var bills = this.$root.$children[0].billsReceive;
             // this.bill = bills[index];

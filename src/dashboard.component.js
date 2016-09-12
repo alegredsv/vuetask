@@ -56,13 +56,13 @@ window.dashboardComponent = Vue.extend({
             return self.billTotalPay;
             //return this.billTotalPay;
         },
-        vlReceive: function () {
+        vlReceive() {
 
 
-            var count = 0;
-            var billListComponent =  this.$root.$children[0];
+            let count = 0;
+            let billListComponent =  this.$root.$children[0];
 
-            for (var i in billListComponent.billsReceive) {
+            for (let i in billListComponent.billsReceive) {
                 if (!billListComponent.billsReceive[i].done) {
                     this.billTotalReceive+=billListComponent.billsReceive[i].value;
                     count++;
@@ -70,7 +70,7 @@ window.dashboardComponent = Vue.extend({
             }
             this.billCount = count;
 
-            self = this;
+            let self = this;
             BillReceived.total().then(function(response){
                 self.billTotalReceive = response.data.total;
             });

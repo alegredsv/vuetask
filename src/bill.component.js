@@ -16,7 +16,7 @@ window.billComponent = Vue.extend({
                 
                 <router-view></router-view>
         `,
-    data: function () {
+    data() {
         return{
             menus: [
                 // {id: 0, name: "Listar contas", url:"/bills"},

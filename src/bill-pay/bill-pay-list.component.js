@@ -18,7 +18,7 @@ window.billPayListComponent = Vue.extend({
                             <td>{{ index +1 }}</td>
                             <td>{{ o.date_due }}</td>
                             <td>{{ o.name }}</td>
-                            <td>{{ o.value | currency 'R$ '}}</td>
+                            <td>{{ o.value | numberFormat}}</td>
                             <td>{{ o.done | doneLabel }}</td>
                             <td>
                                <!-- <span style="margin: 5px;cursor: pointer;" @click.prevent="editaConta(o)"   title="Editar" aria-hidden="true" class="glyphicon glyphicon-pencil"></span>-->
@@ -32,40 +32,40 @@ window.billPayListComponent = Vue.extend({
                     </table>
                 `,
 
-    data:function () {
+    data() {
         return{
           bills: []
         };
     },
-    created:function() {
+    created() {
        // var resource = this.$resource('bills{/id}');
-        let self = this;
-        Bill.query().then(function(response){
-            self.bills = response.data;
+
+        Bill.query().then((response) => {
+            this.bills = response.data;
         })
     },
     methods:{
-         excluiConta: function (bill) {
+         excluiConta(bill) {
              //var resource = this.$resource('bills{/id}');
              let self = this;
             let confimra = confirm("Deseja excluir a conta?");
             if (bill.id > -1 && confimra) {
               //  this.$root.$children[0].billsPay.splice(index, 1);
-                Bill.delete({'id':bill.id}).then(function(response){
-                    self.bills.$remove(bill);
-                    self.$router.go({name:'bill-pay.list'});
+                Bill.delete({'id':bill.id}).then((response) =>{
+                    this.bills.$remove(bill);
+                    this.$router.go({name:'bill-pay.list'});
                 });
                 self.$dispatch('change-info');
             }
 
         },
-        baixaConta: function (bill, status, index) {
+        baixaConta(bill, status, index) {
             bill.done = status;
            // this.$root.$children[0].billsPay[index] = bill;
             let self = this;
-            Bill.update({id:bill.id},bill).then(function(response){
-                self.$dispatch('change-info');
-                self.$router.go({name:'bill-pay.list'});
+            Bill.update({id:bill.id},bill).then((response)=>{
+                this.$dispatch('change-info');
+                this.$router.go({name:'bill-pay.list'});
             });
 
 

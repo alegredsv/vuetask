@@ -20,6 +20,7 @@ window.billPayComponent = Vue.extend({
 
         };
     },
+
     /* computed: {
          status: function () {
     
@@ -38,8 +39,8 @@ window.billPayComponent = Vue.extend({
         this.updateStatus();
         this.updateTotal();
     },
-    methods: {
 
+    methods: {
         caculateStatus: function caculateStatus(bills) {
 
             if (!bills.length) {
@@ -59,18 +60,19 @@ window.billPayComponent = Vue.extend({
             this.status = count;
         },
         updateStatus: function updateStatus() {
-            var self = this;
+            var _this = this;
+
             Bill.query().then(function (response) {
-                self.caculateStatus(response.data);
+                _this.caculateStatus(response.data);
             });
         },
         updateTotal: function updateTotal() {
-            var self = this;
+            var _this2 = this;
+
             Bill.total().then(function (response) {
-                self.total = response.data.total;
+                _this2.total = response.data.total;
             });
         }
-
     },
     events: {
         'change-info': function changeInfo() {

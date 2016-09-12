@@ -10,34 +10,39 @@ window.billReceiveListComponent = Vue.extend({
             bills: []
         };
     },
-
     created: function created() {
+        var _this = this;
+
         // var resource = this.$resource('bills{/id}');
-        var self = this;
+
         BillReceived.query().then(function (response) {
-            self.bills = response.data;
+            _this.bills = response.data;
         });
     },
+
     methods: {
         excluiConta: function excluiConta(bill) {
-            var self = this;
+            var _this2 = this;
+
             var confimra = confirm("Deseja excluir a conta?");
             if (bill.id > -1 && confimra) {
                 //  this.$root.$children[0].billsReceive.splice(index, 1);
                 BillReceived.delete({ 'id': bill.id }).then(function (response) {
-                    self.bills.$remove(bill);
-                    self.$dispatch('change-info-receive');
-                    self.$router.go({ name: 'bill-receive.list' });
+                    _this2.bills.$remove(bill);
+                    _this2.$dispatch('change-info-receive');
+                    _this2.$router.go({ name: 'bill-receive.list' });
                 });
             }
         },
         baixaConta: function baixaConta(bill, status, index) {
+            var _this3 = this;
+
             bill.done = status;
             // this.$root.$children[0].billsPay[index] = bill;
-            var self = this;
+
             BillReceived.update({ id: bill.id }, bill).then(function (response) {
-                self.$dispatch('change-info-receive');
-                self.$router.go({ name: 'bill-receive.list' });
+                _this3.$dispatch('change-info-receive');
+                _this3.$router.go({ name: 'bill-receive.list' });
             });
         }
     }

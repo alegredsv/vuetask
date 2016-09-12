@@ -13,5 +13,4 @@ window.billComponent = Vue.extend({
             { id: 0, name: "Contas a pagar", routeName: "bill-pay.list" }, { id: 1, name: "Contas a receber", routeName: "bill-receive" }, { id: 2, name: "Dashboard", routeName: "dashboard" }]
         };
     }
-
 });
