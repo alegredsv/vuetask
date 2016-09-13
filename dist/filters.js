@@ -54,7 +54,8 @@ Vue.filter('numberFormat', {
         //mostra info na view
         var number = 0;
         if (value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) !== undefined) {
-            number = value.toString().match(/\d+(\.{1}\d{1,2}){0,1}/g)[0] || 0;
+            var numberRegex = value.toString().match(/\d+(\.{1}\d{1,2}){0,1}/g);
+            number = numberRegex ? numberRegex[0] : numberRegex;
         }
         /*return new Number(number).toLocaleString('pt-BR',{minimumFractionDigits: 2, maximumFractionDigits: 2, style:'currency',
         currency: 'BRL'})
@@ -77,25 +78,29 @@ Vue.filter('dateFormat', {
     read: function read(value) {
         //mostra info na view
         if (value && (typeof value === 'undefined' ? 'undefined' : _typeof(value)) !== undefined) {
-            if (!(value instanceof Data)) {
-                var dataString = value.match(/\d{4}\-\d{2}\-\d{2}/g)[0] || null;
+            if (!(value instanceof Date)) {
+                var dateRegex = value.match(/\d{4}\-\d{2}\-\d{2}/g);
+                var dataString = dateRegex ? dateRegex[0] : dateRegex;
                 if (dataString) {
                     value = new Date(dataString + "T03:00:00");
                 } else {
                     return value;
                 }
             }
-            return value.toLocaleString('pt-BR').split(' ')[0];
+            return new Intl.DateTimeFormat('pt-BR').format(value).split(' ')[0];
         }
         return value;
     },
     write: function write(value) {
         // pegar valor da view converter para armazenar no model
-        var number = 0;
-        if (value.length > 0) {
-            number = value.replace(/[^\d\,]/g, '').replace(/\,/g, '.');
-            number = isNaN(number) ? 0 : parseFloat(number);
+        var dateRegex = value.match(/\d{2}\/\d{2}\/\d{4}/g);
+        if (dateRegex) {
+            var dateString = dateRegex[0];
+            var date = new Date(dateString.split('/').reverse().join('-') + "T03:00:00");
+            if (!isNaN(date.getTime())) {
+                return date;
+            }
         }
-        return number;
+        return value;
     }
 });

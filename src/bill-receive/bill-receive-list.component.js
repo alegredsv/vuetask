@@ -21,7 +21,7 @@ window.billReceiveListComponent = Vue.extend({
                             <td>{{ o.service }}</td>                        
                             <td>{{ o.value | numberFormat }}</td>
                             <td>{{ o.done | receiveLabel }}</td>
-                              <td>{{ o.date_due }}</td>
+                              <td>{{ o.date_due | dateFormat}}</td>
                             <td>
                                <!-- <span style="margin: 5px;cursor: pointer;" @click.prevent="editaConta(o)"   title="Editar" aria-hidden="true" class="glyphicon glyphicon-pencil"></span>-->
                                <span style="margin: 5px;cursor: pointer;" v-link="{name: 'bill-receive.update', params:{id:o.id}}"  title="Editar" aria-hidden="true" class="glyphicon glyphicon-pencil"></span>
