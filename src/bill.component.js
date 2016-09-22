@@ -15,6 +15,7 @@ window.billComponent = Vue.extend({
                 </nav>
                 
                 <router-view></router-view>
+               
         `,
     data() {
         return{

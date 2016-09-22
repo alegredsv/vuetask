@@ -2,7 +2,8 @@
  * Created by awichmann on 23/08/2016.
  */
 window.billPayListComponent = Vue.extend({
-    template:` <table class="table">
+    template:` <div class="container">
+                    <table class="table">
                         <thead>
                         <tr>
                             <td>#</td>
@@ -30,6 +31,7 @@ window.billPayListComponent = Vue.extend({
                         </tr>
                         </tbody>
                     </table>
+                    </div>
                 `,
 
     data() {

@@ -37,6 +37,7 @@ window.billPayCreateComponent = Vue.extend({
         return{
             formType: 'insert',
             names: names,
+            bill: new BillManager()
         };
     },
     created() {
