@@ -21,12 +21,21 @@ window.billPayComponent = Vue.extend({
             color: gray;
         }
     </style>
-            <div  class="container centralizado">
-
+             <div class="section">
+          
+               <div class="container">
                 <h1 >{{ title }}</h1>
-                <h3>{{ total | numberFormat }}</h3>
                 <h3  :class="{'statusGray':  bills.length == 0 ,'statusRed':(status > 0 && bills.length > 0), 'statusGreen' : status <= 0 &&  bills.length > 0}">{{ status | totalLabel}}</h3>
+                <div class="row">
+                      <div class="col s5 offset-s7 offset-m4">
+                             <h3>{{ total | numberFormat }}</h3>
+                      </div>
+                </div>
+                
                 <menu-component></menu-component>
+                </div>
+             </div>
+               
                 <router-view></router-view>
                <!-- <div v-show="activedView == 0" class="col-xs-12 col-md-8">
                         <bill-list-component v-ref:bill-list-component></bill-list-component>

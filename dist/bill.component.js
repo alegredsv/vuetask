@@ -4,7 +4,12 @@
  * Created by awichmann on 23/08/2016.
  */
 window.billComponent = Vue.extend({
-    template: "\n         <nav>\n                    <ul>\n                    <li v-for=\"o in menus\">\n                    \n                    <a v-link=\"{name: o.routeName}\">{{o.name}}</a>\n                    </li>\n                     <!--   <li><a href=\"#\" @click.prevent=\"showView(0)\">Listar contas</a></li>\n                        <li><a href=\"#\" @click.prevent=\"novaConta()\">Nova conta</a></li>\n      -->              </ul>\n                </nav>\n                \n                <router-view></router-view>\n        ",
+    template: "\n<div class=\"navbar-fixed\">\n         <nav>\n         <div class=\"nav-wrapper container\">\n             \n                 <a href=\"#\" class=\"brand-logo right\">Code contas</a>\n                  <a href=\"#\" data-activates=\"nav-mobile\" class=\"button-collapse\"><i class=\"material-icons\">menu</i></a>\n                  <ul class=\"left hide-on-med-and-down\">\n                        <li v-for=\"o in menus\"><a v-link=\"{name: o.routeName}\">{{o.name}}</a></li>\n                    </ul>\n                 \n                    <ul id=\"nav-mobile\" class=\"side-nav\">\n                        <li v-for=\"o in menus\"><a v-link=\"{name: o.routeName}\">{{o.name}}</a></li>\n                    </ul>\n                \n             </div>\n             \n                </nav>\n                </div>\n                <router-view></router-view>\n               \n        ",
+    created: function created() {
+        $(document).ready(function () {
+            $('.button-collapse').sideNav();
+        });
+    },
     data: function data() {
         return {
             menus: [

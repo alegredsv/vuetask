@@ -1,9 +1,5 @@
 'use strict';
 
-var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
 /**
  * Created by joeramone on 10/08/2016.
  */
@@ -94,49 +90,3 @@ router.start({
 router.redirect({
     '*': '/bill-receive'
 });
-
-var BillPay = function () {
-    function BillPay(id, name) {
-        _classCallCheck(this, BillPay);
-
-        this._id = id;
-        this._name = name;
-    }
-
-    _createClass(BillPay, [{
-        key: 'showVariables',
-        value: function showVariables() {
-            var texto = arguments.length <= 0 || arguments[0] === undefined ? "MENUNANAN" : arguments[0];
-
-            console.log(this.id);
-            console.log(this.name);
-            console.log(texto);
-        }
-    }, {
-        key: 'id',
-        get: function get() {
-            return this._id;
-        },
-        set: function set(id) {
-            this._id = id;
-        }
-    }, {
-        key: 'name',
-        get: function get() {
-            return this._name;
-        },
-        set: function set(name) {
-            this._name = name;
-        }
-    }]);
-
-    return BillPay;
-}();
-
-var Bill = new BillPay(1, 'Supermercado');
-console.log(Bill);
-Bill.id = 1000;
-Bill.name = 'Fatura cartao';
-console.log(Bill.id);
-console.log(Bill.name);
-//Bill.showVariables();

@@ -3,7 +3,12 @@
  */
 window.billPayListComponent = Vue.extend({
     template:` <div class="container">
-                    <table class="table">
+                <div class="row">
+                    <div class="col s2 m4 l6">Laravel com vue</div>
+                    <div class="col s10 m8 l6">na code education</div>
+                </div>
+                <div class="row">
+                    <table border="1" cellpadding="10">
                         <thead>
                         <tr>
                             <td>#</td>
@@ -32,6 +37,7 @@ window.billPayListComponent = Vue.extend({
                         </tbody>
                     </table>
                     </div>
+                </div>
                 `,
 
     data() {
