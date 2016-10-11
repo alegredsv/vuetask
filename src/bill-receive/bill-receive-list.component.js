@@ -2,16 +2,17 @@
  * Created by awichmann on 23/08/2016.
  */
 window.billReceiveListComponent = Vue.extend({
-    template:` <table class="table">
+    template:`  <div class="row">
+                    <table  class="bordered highlight centered responsive-table" >
                         <thead>
                         <tr>
-                            <td>#</td>
-                            <td>Cliente</td>
-                            <td>Serviço</td>
-                            <td>Valor</td>
-                            <td>Recebido?</td>
-                            <td>Data recebimento</td>
-                            <td>Ações</td>
+                            <th>#</th>
+                            <th>Cliente</th>
+                            <th>Serviço</th>
+                            <th>Valor</th>
+                            <th>Recebido?</th>
+                            <th>Data recebimento</th>
+                            <th>Ações</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -32,6 +33,7 @@ window.billReceiveListComponent = Vue.extend({
                         </tr>
                         </tbody>
                     </table>
+                     </div >
                 `,
     data() {
         return{

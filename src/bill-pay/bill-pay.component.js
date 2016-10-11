@@ -27,12 +27,52 @@ window.billPayComponent = Vue.extend({
                 <h1 >{{ title }}</h1>
                 <h3  :class="{'statusGray':  bills.length == 0 ,'statusRed':(status > 0 && bills.length > 0), 'statusGreen' : status <= 0 &&  bills.length > 0}">{{ status | totalLabel}}</h3>
                 <div class="row">
-                      <div class="col s5 offset-s7 offset-m4">
-                             <h3>{{ total | numberFormat }}</h3>
+                      <div class="col s5 offset-s7 offset-m4 z-depth-2 blue darken-4">
+                             <h3>{{ total | numberFormat }}</h3><i class="material-icons large blue-text text-darken-3">add_circle</i>
                       </div>
+                      <button class="btn yellow waves-effect waves-dark purple-text">
+                      <i class="material-icons left ">add_circle</i>Meu botão</button>
+                      <a class="btn">Minha ancora</a>
+                      
+                      <button class="btn-floating btn-large waves-effect waves-dark purple-text"><i class="material-icons left">add</i></button>
                 </div>
-                
-                <menu-component></menu-component>
+                   <div class="row">
+                   
+                    <div class="col s4">
+                            <div class="card blue z-depth-5">
+                                <div class="card-content">
+                                <p class="card-title">Meu titulo</p>
+                                <p >Conteudo do cartao</p>
+                                </div>
+                                  <div class="card-action">
+                                 <a href="#">aNCORA</a>
+                            </div>
+                        </div>
+                    </div> 
+                          <div class="col s4">
+                            <div class="card-panel blue z-depth-5">
+                                
+                                <p >Conteudo do cartao</p>
+                                
+                        </div>
+                    </div> 
+                    
+                    
+                             
+                    <div class="col s4">
+                            <div class="card yellow">
+                            <div class="card-image">
+                                    <img src="https://thenypost.files.wordpress.com/2016/04/85517981.jpg?quality=90&strip=all&w=978&h=652&crop=1">
+</div>  
+                                <div class="card-content">
+                                <p class="card-title">Meu titulo</p>
+                                <p >Conteudo do cartao</p>
+                                </div>
+                                  <div class="card-action">
+                                 <a href="#">aNCORA</a>
+                            </div>
+                        </div>
+                    </div> 
                 </div>
              </div>
                

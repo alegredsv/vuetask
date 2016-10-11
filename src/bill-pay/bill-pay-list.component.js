@@ -3,20 +3,16 @@
  */
 window.billPayListComponent = Vue.extend({
     template:` <div class="container">
-                <div class="row">
-                    <div class="col s2 m4 l6">Laravel com vue</div>
-                    <div class="col s10 m8 l6">na code education</div>
-                </div>
-                <div class="row">
-                    <table border="1" cellpadding="10">
+                  <div class="row">
+                    <table class="bordered highlight centered responsive-table z-depth-5">
                         <thead>
                         <tr>
-                            <td>#</td>
-                            <td>Vencimento</td>
-                            <td>Nome</td>
-                            <td>Valor</td>
-                            <td>Paga?</td>
-                            <td>Ações</td>
+                            <th>#</th>
+                            <th>Vencimento</th>
+                            <th>Nome</th>
+                            <th>Valor</th>
+                            <th>Paga?</th>
+                            <th>Ações</th>
                         </tr>
                         </thead>
                         <tbody>
