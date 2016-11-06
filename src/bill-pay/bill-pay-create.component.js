@@ -12,24 +12,41 @@ const names =[
 ];
 window.billPayCreateComponent = Vue.extend({
     template: `
+            <div class="container">
+                <div class="row">
+                <h4>Nova conta</h4>
                <form name="form-control" @submit.prevent="submit">
-                        <div class="form-group">
-                            <label for="vencimento">Vencimento</label>
-                            <input type="text" style="width: 200px;" class="form-control" v-model="bill.date_due | dateFormat" id="vencimento" placeholder="00/00/0000">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                 <label class="active">Vencimento</label>
+                                 <input type="text" class="form-control" v-model="bill.date_due | dateFormat" id="vencimento" placeholder="00/00/0000">
+                            </div>
+                            <div class="input-field col s6">
+                                 <label class="active">Valor</label>
+                                 <input type="text" class="form-control"v-model="bill.value | numberFormat" id="valor" placeholder="Valor">
+                            </div>
                         </div>
-                        <div class="form-group ">
-                            <label for="nome">Nome</label>
-                            <select v-model="bill.name" style="width: 200px;" id="nome" placeholder="Nome" class="form-control">
-                                <option v-for="o in names" value="{{ o }}">{{o}}</option>
-                            </select>
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <label class="active">Nome</label>
+                                <select v-model="bill.name"  id="nome" placeholder="Nome"  class="browser-default" >
+                                    <option value="" disabled selected> Escolha</option>
+                                    <option v-for="o in names" value="{{ o }}">{{o}}</option>
+                                </select>
+                            </div>
+                             <div class="input-field col s6">
+                               <input type="checkbox" v-model="bill.done" id="pago" class="filled-in">
+                               <label for="pago">Pago?</label>
+                            </div>
                         </div>
-
-                        <div class="form-group ">
-                            <label for="valor">Valor</label>
-                            <input type="text" style="width: 200px;" class="form-control"v-model="bill.value | numberFormat" id="valor" placeholder="Valor">
+                         <div class="row">
+                          <div class="input-field  col s12">
+                             <input type="submit" value="Enviar" class="btn-large right">
+                             </div>
                         </div>
-                        <input type="submit" value="Enviar">
                     </form>
+                    </div>
+     </div>
     `,
 
     props:['bill'],
@@ -46,6 +63,9 @@ window.billPayCreateComponent = Vue.extend({
           this.getBill(this.$route.params.id);
           return;
       }
+        $(document).ready(function () {
+            $('#nome').material_select();
+        })
        // this.formType = 'insert';
     },
     methods:{

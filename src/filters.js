@@ -16,7 +16,7 @@ Vue.filter('statusGeneral', (value) =>{
     if(!value){
         return 'Nenuma conta a pagar';
     }else{
-        return 'Exites '+value+' contas a serem pagas';
+        return value+' contas à pagar';
     }
 
 })
@@ -35,7 +35,7 @@ Vue.filter("receiveLabel", function (value) {
 
 Vue.filter("totalLabel", function (value) {
 
-    return !value ? 'Nenhuma conta a pagar' : 'Existem ' + value + ' contas a pagar';
+    return !value ? 'Nenhuma conta a pagar' :  value + ' contas à pagar';
    /* if (value == 0) {
         return 'Não';
     } else {
