@@ -35,7 +35,18 @@ window.billPayListComponent = Vue.extend({
                         </tbody>
                     </table>
                     </div>
-                </div>
+                     <a id="btnmodal" class="btn waves-effect" href="#modalOk" >Modsssssssssssal show</a>
+                   <div id="modalOk" class="modal">
+                        <div class="modal-content">
+                            <h2>Meu primeiro modal</h2>
+                            <p>Laravel com vue js</p>
+                        </div>
+                        <div class="modal-footer">
+                        <button class="btn btn-flat green">OK</button>
+                        </div>
+                 </div>
+                </div> 
+               
                 `,
 
     data() {
@@ -48,7 +59,10 @@ window.billPayListComponent = Vue.extend({
 
         Bill.query().then((response) => {
             this.bills = response.data;
-        })
+        });
+        $(document).ready(function () {
+            $("#btnmodal").leanModal();
+        });
     },
     methods:{
          excluiConta(bill) {
