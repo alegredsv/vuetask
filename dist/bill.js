@@ -6,7 +6,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var BillManager = function () {
     function BillManager() {
-        var data = arguments.length <= 0 || arguments[0] === undefined ? [] : arguments[0];
+        var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 
         _classCallCheck(this, BillManager);
 

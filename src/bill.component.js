@@ -2,6 +2,9 @@
  * Created by awichmann on 23/08/2016.
  */
 window.billComponent = Vue.extend({
+    components:{
+        'modal' :modalComponent
+    },
     template: `
 <ul v-bind:id="o.id" class="dropdown-content" v-for="o in menusDropdown">
     <li v-for="item in o.items"><a v-link="{name: item.routeName}">{{item.name}}</a></li>
@@ -28,6 +31,7 @@ window.billComponent = Vue.extend({
              
                 </nav>
                 </div>
+                <modal></modal>
                 <router-view></router-view>
                
         `,

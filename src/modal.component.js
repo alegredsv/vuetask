@@ -3,39 +3,24 @@
  */
 window.modalComponent = Vue.extend({
     template: `
-               
-        `,
+       <div  class="modal" >
+            <div class="modal-content">
+                <slot name="content"></slot>
+            </div>
+             <div class="modal-footer">
+                <slot name="footer"></slot>
+            </div>
+        </div>
+    `,
+    props:['modal'],
     created(){
-        $(document).ready(function() {
-            $('.button-collapse').sideNav();
-            $('.dropdown-button').dropdown();
-        });
 
     },
-    data() {
+    data(){
         return{
-            menus: [
-                // {id: 0, name: "Listar contas", url:"/bills"},
-                // {id: 1, name: "Criar contas", url:"/bill/create"}
-            {id: 0, name: "Contas a pagar", routeName:"bill-pay.list", dropdownId:"bill-pay"},
-                {id: 1, name: "Contas a receber", routeName:"bill-receive",dropdownId:"bill-receive"},
-                {id: 2, name: "Dashboard", routeName:"dashboard"}
-            ],
-            menusDropdown:[
-                {id: 'bill-pay', items:[
-                    {id: 0, name: "Listar contas", routeName:"bill-pay.list"},
-                    {id: 1, name: "Criar contas", routeName:"bill-pay.create"}
-
-                ]},
-                {id: 'bill-receive', items:[
-                    {id: 0, name: "Listar contas", routeName:"bill-receive.list"},
-                    {id: 1, name: "Criar contas", routeName:"bill-receive.create"}
-
-                ]}
-
-            ]
+            modal:{
+                id:''
+            }
         };
     }
-
-
 });

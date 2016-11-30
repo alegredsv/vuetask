@@ -35,23 +35,24 @@ window.billPayListComponent = Vue.extend({
                         </tbody>
                     </table>
                     </div>
-                     <a id="btnmodal" class="btn waves-effect" href="#modalOk" >Modsssssssssssal show</a>
-                   <div id="modalOk" class="modal">
-                        <div class="modal-content">
-                            <h2>Meu primeiro modal</h2>
-                            <p>Laravel com vue js</p>
-                        </div>
-                        <div class="modal-footer">
-                        <button class="btn btn-flat green">OK</button>
-                        </div>
-                 </div>
+                     
                 </div> 
+                <modal :modal="modal.id">
+                    <div slot="content"><h4>Mensagem de confirmacao</h4><p><strong>Deseja excluir essa conta?</strong></p></div>
+                    <div slot="footer">
+                       <button class="btn btn-flat waves-effect green lighten-2 modal-close modal-action">OK</button>
+                         <button class="btn btn-flat waves-effect waves-red  modal-close modal-action">Cancelar</button>
+                    </div>
+                </modal>
                
                 `,
 
     data() {
         return{
-          bills: []
+          bills: [],
+          modal:{
+              id:'modal-delete'
+          }
         };
     },
     created() {
@@ -60,9 +61,11 @@ window.billPayListComponent = Vue.extend({
         Bill.query().then((response) => {
             this.bills = response.data;
         });
+
         $(document).ready(function () {
-            $("#btnmodal").leanModal();
-        });
+
+
+        })
     },
     methods:{
          excluiConta(bill) {
@@ -89,6 +92,9 @@ window.billPayListComponent = Vue.extend({
             });
 
 
+        },
+        openModalDelete(){
+            $('#modal-delete').openModal();
         }
     }
 });
