@@ -11,7 +11,8 @@ window.billComponent = Vue.extend({
 
 </ul>
 <div class="navbar-fixed">
-         <nav class="teal">
+        <!-- <nav class="teal">-->
+          <nav>
          <div class="nav-wrapper container">
              
                  <a href="#" class="brand-logo right yellow-text text-lighten-3">Code contas</a>
@@ -31,7 +32,7 @@ window.billComponent = Vue.extend({
              
                 </nav>
                 </div>
-                <modal></modal>
+               
                 <router-view></router-view>
                
         `,

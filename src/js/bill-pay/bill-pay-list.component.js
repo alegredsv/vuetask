@@ -27,7 +27,7 @@ window.billPayListComponent = Vue.extend({
                             <td>
                                <!-- <span style="margin: 5px;cursor: pointer;" @click.prevent="editaConta(o)"   title="Editar" aria-hidden="true" class="glyphicon glyphicon-pencil"></span>-->
                                <span style="margin: 5px;cursor: pointer;" v-link="{name: 'bill-pay.update', params:{id:o.id}}"  title="Editar" aria-hidden="true"><i class="material-icons">edit</i></span>
-                               <span @click.prevent="excluiConta(o);" title="Exluir" aria-hidden="true" "><i class="material-icons">delete</i></span>
+                               <span @click.prevent=" openModalDelete();" title="Exluir" aria-hidden="true" "><i class="material-icons">delete</i></span>
                                 <span @click.prevent="baixaConta(o, true, o.id);" title="Marcar como paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-up"></span>
                                 <span @click.prevent="baixaConta(o, false, o.id);" title="Marcar como não paga" aria-hidden="true" class="glyphicon glyphicon-thumbs-down"></span>
                              </td>
@@ -37,8 +37,11 @@ window.billPayListComponent = Vue.extend({
                     </div>
                      
                 </div> 
-                <modal :modal="modal.id">
-                    <div slot="content"><h4>Mensagem de confirmacao</h4><p><strong>Deseja excluir essa conta?</strong></p></div>
+                <modal :modal="modal">
+                    <div slot="content">
+                        <h4>Mensagem de confirmacao</h4>
+                        <p><strong>Deseja excluir essa conta?</strong>
+                       </p></div>
                     <div slot="footer">
                        <button class="btn btn-flat waves-effect green lighten-2 modal-close modal-action">OK</button>
                          <button class="btn btn-flat waves-effect waves-red  modal-close modal-action">Cancelar</button>
@@ -51,7 +54,7 @@ window.billPayListComponent = Vue.extend({
         return{
           bills: [],
           modal:{
-              id:'modal-delete'
+              id:"modal-delete"
           }
         };
     },
@@ -61,11 +64,6 @@ window.billPayListComponent = Vue.extend({
         Bill.query().then((response) => {
             this.bills = response.data;
         });
-
-        $(document).ready(function () {
-
-
-        })
     },
     methods:{
          excluiConta(bill) {
