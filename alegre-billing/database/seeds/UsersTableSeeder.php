@@ -15,5 +15,10 @@ class UsersTableSeeder extends Seeder
             'email' => 'admin@user.com',
             'name' => 'Adriano Wichmann'
         ]);
+
+        factory(\AlegreBill\User::class,1)->states('client')->create([
+            'email' => 'client@user.com',
+            'name' => 'Cliente A'
+        ]);
     }
 }

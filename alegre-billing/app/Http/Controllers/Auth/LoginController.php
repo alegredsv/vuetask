@@ -3,7 +3,9 @@
 namespace AlegreBill\Http\Controllers\Auth;
 
 use AlegreBill\Http\Controllers\Controller;
+use AlegreBill\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
@@ -36,4 +38,24 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+
+    protected function credentials(Request $request)
+    {
+        $data = $request->only($this->username(),'password');
+        $data['role'] =  User::ROLE_ADMIN;
+        return $data;
+    }
+
+
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
+
+        $request->session()->flush();
+
+        $request->session()->regenerate();
+
+        return redirect(env('URL_ADMIN_LOGIN'));
+    }
+
 }
