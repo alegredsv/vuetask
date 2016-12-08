@@ -22,6 +22,7 @@
 </head>
 <body>
     <div id="app">
+        <example></example>
         <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
                 <div class="navbar-header">
@@ -82,6 +83,7 @@
     </div>
 
     <!-- Scripts -->
+
     <script src="{{ asset('build/admin.bundle.js') }}"></script>
 </body>
 </html>

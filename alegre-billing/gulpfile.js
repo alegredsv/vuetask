@@ -25,9 +25,8 @@ const mergeWebpack = require('webpack-merge');
 gulp.task('webpack-dev-server',() =>{
     let config = mergeWebpack(webpackConfig,webpackDevConfig);
     let inlineHot=[
-       'webpack-dev-server/client?http://192.168.10.10:8080',
-       'webpack/hot/dev-server'
-
+       'webpack-dev-server/client?http://192.168.10.10:8080/',
+       'webpack/hot/only-dev-server'
     ];
     config.entry.admin = [config.entry.admin].concat(inlineHot);
     new WebpackDevServer(webpack(config),{
