@@ -22,6 +22,7 @@
 </head>
 <body>
     <div id="app">
+        <header>
         @if (Auth::check())
             <?php $menuConfig=[
                 'name' => Auth::user()->name,
@@ -43,9 +44,17 @@
             ];?>
             <admin-menu :config="{{ json_encode($menuConfig)}}"></admin-menu>
         @endif
-
-
+        </header>
+        <main>
         @yield('content')
+        </main>
+        <footer class="page-footer">
+            <div class="footer-copyright">
+                <div class="container">
+                    {{ date('Y') }} <a class="grey-text text-lighten-4" href="#">Alegre seu dia</a>
+                </div>
+            </div>
+        </footer>
     </div>
 
     <!-- Scripts -->
