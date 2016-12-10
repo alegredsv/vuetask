@@ -23,6 +23,9 @@ Route::get('/', function () {
 
     return view('welcome');
 });
+Route::get('/app', function () {
+    return view('layouts.spa');
+});
 
 
 
