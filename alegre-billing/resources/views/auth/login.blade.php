@@ -28,7 +28,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                  <input type="checkbox" name="remember" id="remember">
-                                    <label for="remember"> Lembarar-me</label>
+                                    <label for="remember"> Lembrar-me</label>
 
 
                             </div>
