@@ -1,16 +1,10 @@
-import LoginComponent from './components/Login.vue';
+
 import AppComponent from './components/App.vue';
+import routerMap from './router.map';
+import VueRouter from 'vue-router';
 
-let VueRouter = require('vue-router');
 const router = new VueRouter();
-
-
-router.map({
-    '/login' :{
-        name: 'auth.login',
-        component: LoginComponent
-    }
-});
+router.map(routerMap);
 
 router.start({
     components:{
