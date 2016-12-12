@@ -5,6 +5,12 @@ const WebpackDevServer = require('webpack-dev-server');
 const webpackConfig = require('./webpack.config');
 const webpackDevConfig = require('./webpack.dev.config');
 const mergeWebpack = require('webpack-merge');
+const env = require('gulp-env');
+env({
+    file: './.env',
+    type: 'ini'
+});
+console.log(process.env.QUEUE_DRIVER);
 //require('laravel-elixir-vue');
 //require('laravel-elixir-webpack-official');
 // Elixir.webpack.config.module.loader = [];
