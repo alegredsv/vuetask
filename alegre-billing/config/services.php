@@ -30,7 +30,7 @@ return [
     ],
 
     'stripe' => [
-        'model' => AlegreBill\User::class,
+        'model' => \AlegreBill\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],

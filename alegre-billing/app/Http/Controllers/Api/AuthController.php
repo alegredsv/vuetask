@@ -3,7 +3,7 @@
 namespace AlegreBill\Http\Controllers\Api;
 
 use AlegreBill\Http\Controllers\Controller;
-use AlegreBill\User;
+use AlegreBill\Models\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;

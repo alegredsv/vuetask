@@ -2,7 +2,7 @@
 
 namespace AlegreBill\Providers;
 
-use AlegreBill\User;
+use AlegreBill\Models\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 

@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => AlegreBill\User::class,
+            'model' => \AlegreBill\Models\User::class,
         ],
 
         // 'users' => [

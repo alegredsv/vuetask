@@ -2,7 +2,7 @@
 
 namespace AlegreBill\Http\Controllers\Auth;
 
-use AlegreBill\User;
+use AlegreBill\Models\User;
 use Validator;
 use AlegreBill\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -58,7 +58,7 @@ class RegisterController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array  $data
-     * @return User
+     * @return \AlegreBill\Models\User
      */
     protected function create(array $data)
     {

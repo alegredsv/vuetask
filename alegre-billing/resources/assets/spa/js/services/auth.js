@@ -38,5 +38,9 @@ export default{
     afterLogout(){
         LocalStorage.remove(TOKEN);
         LocalStorage.remove(USER);
+    },
+    clearAuth(){
+        LocalStorage.remove(TOKEN);
+        LocalStorage.remove(USER);
     }
 }

@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(AlegreBill\User::class, function (Faker\Generator $faker) {
+$factory->define(\AlegreBill\Models\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
@@ -23,14 +23,14 @@ $factory->define(AlegreBill\User::class, function (Faker\Generator $faker) {
 });
 
 
-$factory->state(\AlegreBill\User::class,'admin',function (Faker\Generator $faker){
+$factory->state(\AlegreBill\Models\User::class,'admin',function (Faker\Generator $faker){
     return [
-        'role' => \AlegreBill\User::ROLE_ADMIN
+        'role' => \AlegreBill\Models\User::ROLE_ADMIN
     ];
 });
 
-$factory->state(\AlegreBill\User::class,'client',function (Faker\Generator $faker){
+$factory->state(\AlegreBill\Models\User::class,'client',function (Faker\Generator $faker){
     return [
-        'role' => \AlegreBill\User::ROLE_CLIENT
+        'role' => \AlegreBill\Models\User::ROLE_CLIENT
     ];
 });

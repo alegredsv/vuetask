@@ -11,12 +11,12 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(\AlegreBill\User::class,1)->states('admin')->create([
+        factory(\AlegreBill\Models\User::class,1)->states('admin')->create([
             'email' => 'admin@user.com',
             'name' => 'Adriano Wichmann'
         ]);
 
-        factory(\AlegreBill\User::class,1)->states('client')->create([
+        factory(\AlegreBill\Models\User::class,1)->states('client')->create([
             'email' => 'client@user.com',
             'name' => 'Cliente A'
         ]);
