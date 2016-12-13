@@ -47,7 +47,12 @@
 
 <script>
     import Auth from '../services/auth';
+
+
     export default{
+        ready(){
+            Auth.afterLogout();
+        },
         data(){
             return{
                 user:{

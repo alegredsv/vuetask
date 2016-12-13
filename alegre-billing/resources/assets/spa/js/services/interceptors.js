@@ -6,7 +6,7 @@ Vue.http.interceptors.push((request, next) => {
 
 Vue.http.interceptors.push((request, next) => {
     next((response) => {
-        if(response.status === 401){ //token expirado
+        if(response.status === 401 || response.status === 0){ //token expirado
             return Auth.refreshToken().then(() =>{
                 return Vue.http(request);
             });
