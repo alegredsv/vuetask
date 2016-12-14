@@ -180,6 +180,7 @@ return [
         // AlegreBill\Providers\BroadcastServiceProvider::class,
         AlegreBill\Providers\EventServiceProvider::class,
         AlegreBill\Providers\RouteServiceProvider::class,
+        AlegreBill\Providers\RepositoryServiceProvider::class,
 
     ],
 

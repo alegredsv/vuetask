@@ -37,6 +37,7 @@ Route::group(['prefix' => 'admin', 'as' =>'admin.' ],function (){
     Auth::routes();
     Route::group(['middleware' =>'can:access-admin'],function (){
         Route::get('/home', 'HomeController@index')->name('home');
+        Route::resource('banks','Admin\BanksCOntroller',['except' => 'show']);
     });
 
 });

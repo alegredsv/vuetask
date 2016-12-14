@@ -11,6 +11,8 @@
 |
 */
 
+use AlegreBill\Models\Bank;
+
 $factory->define(\AlegreBill\Models\User::class, function (Faker\Generator $faker) {
     static $password;
 
@@ -32,5 +34,12 @@ $factory->state(\AlegreBill\Models\User::class,'admin',function (Faker\Generator
 $factory->state(\AlegreBill\Models\User::class,'client',function (Faker\Generator $faker){
     return [
         'role' => \AlegreBill\Models\User::ROLE_CLIENT
+    ];
+});
+
+$factory->define(Bank::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->name,
+        'logo' => md5(time()).'.jpeg'
     ];
 });
