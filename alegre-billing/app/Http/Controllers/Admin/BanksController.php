@@ -52,7 +52,7 @@ class BanksController extends Controller
     }
 
     public function create(){
-
+        return view('admin.banks.create');
     }
     /**
      * Store a newly created resource in storage.
@@ -64,33 +64,35 @@ class BanksController extends Controller
     public function store(BankCreateRequest $request)
     {
 
-        try {
+       // try {
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+           // $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
+            $data = $request->all();
+            $data['logo'] = md5(time()).'.jpeg';
+             $this->repository->create($data);
 
-            $bank = $this->repository->create($request->all());
 
-            $response = [
-                'message' => 'Bank created.',
-                'data'    => $bank->toArray(),
-            ];
 
-            if ($request->wantsJson()) {
+//            if ($request->wantsJson()) {
+//
+//                $response = [
+//                    'message' => 'Bank created.',
+//                    'data'    => $bank->toArray(),
+//                ];
+//                return response()->json($response);
+//            }
 
-                return response()->json($response);
-            }
-
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+            return redirect()->route("admin.banks.index");
+//        } catch (ValidatorException $e) {
+//            if ($request->wantsJson()) {
+//                return response()->json([
+//                    'error'   => true,
+//                    'message' => $e->getMessageBag()
+//                ]);
+//            }
+//
+//            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+//        }
     }
 
 
@@ -107,7 +109,7 @@ class BanksController extends Controller
 
         $bank = $this->repository->find($id);
 
-        return view('banks.edit', compact('bank'));
+        return view('admin.banks.edit', compact('bank'));
     }
 
 
@@ -122,35 +124,35 @@ class BanksController extends Controller
     public function update(BankUpdateRequest $request, $id)
     {
 
-        try {
+      //  try {
 
-            $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
+        //    $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_UPDATE);
 
-            $bank = $this->repository->update($id, $request->all());
+             $this->repository->update($request->all(),$id);
 
-            $response = [
-                'message' => 'Bank updated.',
-                'data'    => $bank->toArray(),
-            ];
 
-            if ($request->wantsJson()) {
 
-                return response()->json($response);
-            }
+//            if ($request->wantsJson()) {
+//                $response = [
+//                    'message' => 'Bank updated.',
+//                    'data'    => $bank->toArray(),
+//                ];
+//                return response()->json($response);
+//            }
 
-            return redirect()->back()->with('message', $response['message']);
-        } catch (ValidatorException $e) {
-
-            if ($request->wantsJson()) {
-
-                return response()->json([
-                    'error'   => true,
-                    'message' => $e->getMessageBag()
-                ]);
-            }
-
-            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-        }
+            return redirect()->route('admin.banks.index');
+//        } catch (ValidatorException $e) {
+//
+//            if ($request->wantsJson()) {
+//
+//                return response()->json([
+//                    'error'   => true,
+//                    'message' => $e->getMessageBag()
+//                ]);
+//            }
+//
+//            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
+//        }
     }
 
 
@@ -163,16 +165,17 @@ class BanksController extends Controller
      */
     public function destroy($id)
     {
-        $deleted = $this->repository->delete($id);
-
+        dd($id);
+        $this->repository->delete($id);
+/*
         if (request()->wantsJson()) {
 
             return response()->json([
                 'message' => 'Bank deleted.',
                 'deleted' => $deleted,
             ]);
-        }
+        }*/
 
-        return redirect()->back()->with('message', 'Bank deleted.');
+        return redirect()->route('admin.banks.index');
     }
 }
