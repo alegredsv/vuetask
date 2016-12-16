@@ -1,7 +1,7 @@
-import {Jwt} from './resources';
+import JwtToken from './jwt-token';
 import LocalStorage from './localStorage';
 import {User} from '../services/resources';
-const TOKEN = 'token';
+
 const USER = 'user';
 const afterLogin = (response)=>{
     User.get().then((response) => {
@@ -10,37 +10,26 @@ const afterLogin = (response)=>{
 }
 export default{
     login(email,password){
-       return Jwt.accessToken(email, password).then((response) => {
-            LocalStorage.set(TOKEN,response.data.token);
+       return JwtToken.accessToken(email, password).then((response) => {
             afterLogin(response);
             return response;
         });
 
     },
     logout(){
-       return Jwt.logout().then(this.afterLogout()).catch(this.afterLogout());
-    },
-    refreshToken(){
-      return Jwt.refreshToken().then((response) => {
-          LocalStorage.set(TOKEN,response.data.token);
-          return response;
-      })
-    },
-    getAutorizationHeader(){
-        return `Bearer ${LocalStorage.get(TOKEN)}`;
+       return JwtToken.revokeToken().then(
+           this.afterLogout()).catch(this.afterLogout());
     },
     user(){
         return LocalStorage.getObject(USER);
     },
     check(){
-        return LocalStorage.get(TOKEN)?true:false;
+        return JwtToken.token ? true : false;
     },
     afterLogout(){
-        LocalStorage.remove(TOKEN);
-        LocalStorage.remove(USER);
+       LocalStorage.remove(USER);
     },
     clearAuth(){
-        LocalStorage.remove(TOKEN);
-        LocalStorage.remove(USER);
+       LocalStorage.remove(USER);
     }
 }
