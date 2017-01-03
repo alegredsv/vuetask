@@ -5,7 +5,7 @@
     </ul>
     <ul :id="dropdown-logout" class="dropdown-content" >
         <li>
-            <a href="#">Sair</a>
+            <a v-link="{name: 'auth.logout'}">Sair</a>
         </li>
 
     </ul>
