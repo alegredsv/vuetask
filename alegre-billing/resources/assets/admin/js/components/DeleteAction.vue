@@ -1,6 +1,6 @@
 <template>
    <slot></slot>
-    <form method="POST" :action="action"  :id="action">
+    <form method="POST" :action="action"  :id="id">
         <input type="hidden" name="_method" value="DELETE" />
         <input type="hidden" name="_token" :value="csrfToken" />
 

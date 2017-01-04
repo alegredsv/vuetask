@@ -2,11 +2,13 @@
 
 namespace AlegreBill\Http\Controllers\Admin;
 
+use AlegreBill\Events\BankCreatedEvent;
 use AlegreBill\Http\Controllers\Controller;
 use AlegreBill\Http\Controllers\Response;
 
 
 use AlegreBill\Http\Requests;
+use AlegreBill\Models\Bank;
 use Prettus\Validator\Contracts\ValidatorInterface;
 use Prettus\Validator\Exceptions\ValidatorException;
 use AlegreBill\Http\Requests\BankCreateRequest;
@@ -41,13 +43,6 @@ class BanksController extends Controller
     {
 
         $banks = $this->repository->paginate(5);
-
-        /*if (request()->wantsJson()) {
-            return response()->json([
-                'data' => $banks,
-            ]);
-        }*/
-
         return view('admin.banks.index', compact('banks'));
     }
 
@@ -64,35 +59,9 @@ class BanksController extends Controller
     public function store(BankCreateRequest $request)
     {
 
-       // try {
-
-           // $this->validator->with($request->all())->passesOrFail(ValidatorInterface::RULE_CREATE);
             $data = $request->all();
-            $data['logo'] = md5(time()).'.jpeg';
-             $this->repository->create($data);
-
-
-
-//            if ($request->wantsJson()) {
-//
-//                $response = [
-//                    'message' => 'Bank created.',
-//                    'data'    => $bank->toArray(),
-//                ];
-//                return response()->json($response);
-//            }
-
+            $this->repository->create($data);
             return redirect()->route("admin.banks.index");
-//        } catch (ValidatorException $e) {
-//            if ($request->wantsJson()) {
-//                return response()->json([
-//                    'error'   => true,
-//                    'message' => $e->getMessageBag()
-//                ]);
-//            }
-//
-//            return redirect()->back()->withErrors($e->getMessageBag())->withInput();
-//        }
     }
 
 
@@ -165,7 +134,7 @@ class BanksController extends Controller
      */
     public function destroy($id)
     {
-        dd($id);
+
         $this->repository->delete($id);
 /*
         if (request()->wantsJson()) {

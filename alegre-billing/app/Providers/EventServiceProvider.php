@@ -2,6 +2,9 @@
 
 namespace AlegreBill\Providers;
 
+use AlegreBill\Events\BankCreatedEvent;
+use AlegreBill\Events\BankStoredEvent;
+use AlegreBill\Listeners\BankLogoUpload;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -13,9 +16,9 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'AlegreBill\Events\SomeEvent' => [
-            'AlegreBill\Listeners\EventListener',
-        ],
+       BankStoredEvent::class => [
+           BankLogoUpload::class
+       ]
     ];
 
     /**
