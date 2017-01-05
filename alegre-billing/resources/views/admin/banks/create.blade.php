@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <h4>Novo banco</h4>
-            {!! Form::open(['route' => 'admin.banks.store' , 'class' => 'col s10']) !!}
+            {!! Form::open(['route' => 'admin.banks.store' , 'class' => 'col s10', 'files' => 'true'    ]) !!}
             @include('admin.banks._form')
             <div class="row">
                {!! Form::submit('Criar banco',['class'=>'btn waves-effect right']) !!}

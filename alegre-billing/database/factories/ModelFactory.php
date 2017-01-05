@@ -36,10 +36,3 @@ $factory->state(\AlegreBill\Models\User::class,'client',function (Faker\Generato
         'role' => \AlegreBill\Models\User::ROLE_CLIENT
     ];
 });
-
-$factory->define(Bank::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->name,
-        'logo' => md5(time()).'.jpeg'
-    ];
-});
