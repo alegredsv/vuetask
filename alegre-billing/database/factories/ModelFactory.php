@@ -36,3 +36,12 @@ $factory->state(\AlegreBill\Models\User::class,'client',function (Faker\Generato
         'role' => \AlegreBill\Models\User::ROLE_CLIENT
     ];
 });
+
+
+$factory->define(\AlegreBill\Models\BankAccount::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->city,
+        'agency' => rand(10000,60000).'-'.rand(0,9),
+        'account' => rand(70000,260000).'-'.rand(0,9)
+    ];
+});

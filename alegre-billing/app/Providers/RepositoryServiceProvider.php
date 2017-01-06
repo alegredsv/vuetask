@@ -24,6 +24,7 @@ class RepositoryServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(\AlegreBill\Repositories\BankRepository::class, \AlegreBill\Repositories\BankRepositoryEloquent::class);
+        $this->app->bind(\AlegreBill\Repositories\BankAccountRepository::class, \AlegreBill\Repositories\BankAccountRepositoryEloquent::class);
         //:end-bindings:
     }
 }
