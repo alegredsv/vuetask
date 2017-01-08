@@ -2,6 +2,7 @@
 
 namespace AlegreBill\Repositories;
 
+use AlegreBill\Presenters\BankAccountPresenter;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use AlegreBill\Repositories\BankAccountRepository;
@@ -14,6 +15,7 @@ use AlegreBill\Models\BankAccount;
  */
 class BankAccountRepositoryEloquent extends BaseRepository implements BankAccountRepository
 {
+    
     /**
      * Specify Model class name
      *
@@ -32,5 +34,10 @@ class BankAccountRepositoryEloquent extends BaseRepository implements BankAccoun
     public function boot()
     {
         $this->pushCriteria(app(RequestCriteria::class));
+    }
+
+    public function presenter()
+    {
+        return BankAccountPresenter::class;
     }
 }

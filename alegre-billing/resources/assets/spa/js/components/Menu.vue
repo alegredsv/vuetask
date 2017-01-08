@@ -14,7 +14,7 @@
         <nav>
             <div class="nav-wrapper">
                 <div class="col s12">
-                   <div class="col s5"> <a href="#" class="brand-logo left yellow-text text-lighten-3">Insapeca SPA</a></div>
+                   <div class="col s5"> <a href="#" class="brand-logo left yellow-text text-lighten-3">BILLING ALEGRE</a></div>
                     <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
                     <ul class="right hide-on-med-and-down">
                         <li v-for="o in menus">
@@ -53,18 +53,9 @@ import Auth from '../services/auth';
         data(){
             return{
                 menus: [
-                    { name: "Cadastrar", dropdownId:"teste"},
-                    { name: "Login", routeName:"login"}
-                   
+                    { name: "Conta bancária", routeName:"bank-account.list"}
                 ],
-                menusDropdown:[
-                    {id: 'teste', items:[
-                        { name: "Listar contas", routeName:"bill-pay.list"},
-                        { name: "Criar contas", routeName:"bill-pay.create"}
-
-                    ]}
-
-                ],
+                menusDropdown:[],
                 user : Auth.user
             };
         }

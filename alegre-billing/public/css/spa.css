@@ -5309,7 +5309,7 @@ nav ul a span.badge {
   height: 100%;
 }
 
-.progress {
+.progress, .spiner {
   position: relative;
   height: 4px;
   display: block;
@@ -5320,7 +5320,7 @@ nav ul a span.badge {
   overflow: hidden;
 }
 
-.progress .determinate {
+.progress .determinate, .spiner .determinate {
   position: absolute;
   top: 0;
   left: 0;
@@ -5330,11 +5330,11 @@ nav ul a span.badge {
   transition: width .3s linear;
 }
 
-.progress .indeterminate {
+.progress .indeterminate, .spiner .indeterminate {
   background-color: #43A047;
 }
 
-.progress .indeterminate:before {
+.progress .indeterminate:before, .spiner .indeterminate:before {
   content: '';
   position: absolute;
   background-color: inherit;
@@ -5346,7 +5346,7 @@ nav ul a span.badge {
   animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
 }
 
-.progress .indeterminate:after {
+.progress .indeterminate:after, .spiner .indeterminate:after {
   content: '';
   position: absolute;
   background-color: inherit;
@@ -10690,6 +10690,20 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   .picker--time .picker__box {
     margin-bottom: 5em;
   }
+}
+
+body {
+  background-color: #E8F5E9;
+}
+
+.spiner {
+  margin: 0;
+}
+
+.spiner-fixed {
+  width: 100%;
+  position: fixed;
+  z-index: 998;
 }
 
 /*# sourceMappingURL=spa.css.map */
