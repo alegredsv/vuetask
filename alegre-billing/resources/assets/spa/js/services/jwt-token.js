@@ -25,11 +25,12 @@ export default{
         return `Bearer ${LocalStorage.get(TOKEN)}`;
     },
     revokeToken(){
-        let afterRevokeToken = () => {
+        let afterRevokeToken = (resp) => {
             this.token = null;
+            return resp;
         }
         return Jwt.logout().then(
-            afterRevokeToken()).catch(afterRevokeToken());
+            afterRevokeToken).catch(afterRevokeToken);
     }
 
 }

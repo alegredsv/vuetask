@@ -38,13 +38,18 @@ export default{
 
     },
     logout(){
+        let afterLogout = (response) => {
+            this.clearAuth();
+            return response;
+        }
        return JwtToken.revokeToken().then(
-           this.afterLogout()).catch(this.afterLogout());
+           afterLogout).catch(afterLogout);
     },
    
-    afterLogout(){
-       LocalStorage.remove(USER);
-    },
+    // afterLogout(response){
+    //    LocalStorage.remove(USER);
+    //     return response
+    // },
     clearAuth(){
         this.user.data = null;
         this.user.check = false;

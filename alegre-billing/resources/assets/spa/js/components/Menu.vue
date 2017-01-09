@@ -53,7 +53,7 @@ import Auth from '../services/auth';
         data(){
             return{
                 menus: [
-                    { name: "Conta bancária", routeName:"bank-account.list"}
+                    { name: "Conta bancária", routeName: "bank-account.list"},
                 ],
                 menusDropdown:[],
                 user : Auth.user
