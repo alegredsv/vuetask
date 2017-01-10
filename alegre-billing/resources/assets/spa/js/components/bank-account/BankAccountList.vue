@@ -7,20 +7,35 @@
             </span>
             </div>
             <div class="card-panel z-depth-5">
+                <form name="form" method="GET" @submit="filter()">
+                    <div class="filter-group">
+                        <button class="btn waves-effect" type="submit">
+                            <i class="material-icons">search</i>
+                        </button>
+                        <div class="filter-wrapper">
+                            <input type="text" v-model="search" placeholder="Digite aqui a sua busca"/>
+                        </div>
+                    </div>
+
+
+                </form>
                 <table class="bordered striped highlight responsive-table ">
                     <thead>
                     <tr>
-                        <th>#</th>
-                        <th>Nome</th>
-                        <th>Agência</th>
-                        <th>C/C</th>
+                        <th v-for="(key, o) in table.header" :width="o.width">
+                          <a href="#" @click.prevent="sortBy(key)">
+                              {{o.label}}
+                              <i class="material-icons right" v-if="order.key == key">
+                                {{ order.sort == 'asc' ? 'arrow_drop_up' : 'arrow_drop_down' }}
+                              </i>
+                          </a>
+                        </th>
                         <th>Ações</th>
                     </tr>
-
                     </thead>
                     <tbody>
                     <tr v-for="(index,o) in bankAccounts">
-                        <td>&nbsp;{{index + 1}}</td>
+                        <td>&nbsp;{{o.id }}</td>
                         <td>{{ o.name }}</td>
                         <td>{{ o.agency }}</td>
                         <td>{{ o.account }}</td>
@@ -85,6 +100,32 @@
                     current_page: 0,
                     per_page: 0,
                     total:0
+                },
+                search : "",
+                order:{
+                    key: 'id',
+                    sort: 'asc'
+                },
+
+                table:{
+                    header:{
+                        id:{
+                            label: '#',
+                            width: '10%'
+                        },
+                        name:{
+                            label: 'Nome',
+                            width: '45%'
+                        },
+                        agency:{
+                            label: 'Agência',
+                            width: '15%'
+                        },
+                        account:{
+                            label: 'C/C',
+                            width: '15%'
+                        }
+                    }
                 }
             }
         },
@@ -106,7 +147,10 @@
             },
             getBankAccounts(){
                  BankAccount.query({
-                 page:this.pagination.current_page + 1
+                 page:this.pagination.current_page + 1,
+                 orderBy: this.order.key,
+                 sortedBy: this.order.sort,
+                 search: this.search
                  }).then((response) => {
                                      this.bankAccounts = response.data.data;
                                      let pagination = response.data.meta.pagination;
@@ -115,6 +159,14 @@
 
                             });
 
+            },
+            sortBy(key){
+                this.order.key = key;
+                this.order.sort = this.order.sort == 'desc' ? 'asc':'desc';
+                this.getBankAccounts();
+            },
+            filter(){
+                 this.getBankAccounts();
             }
 
         },

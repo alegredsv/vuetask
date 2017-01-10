@@ -23,3 +23,14 @@ body{
   position: fixed;
   z-index: 998;
 }
+.filter-group{
+  .btn{
+    float: right;
+    line-height: 3rem;
+    height: 3rem;
+  }
+  .filter-wrapper{
+      overflow: hidden;
+      padding-right: 10px;
+  }
+}

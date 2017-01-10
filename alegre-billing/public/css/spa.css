@@ -10706,4 +10706,15 @@ body {
   z-index: 998;
 }
 
+.filter-group .btn, .filter-group .btn-large {
+  float: right;
+  line-height: 3rem;
+  height: 3rem;
+}
+
+.filter-group .filter-wrapper {
+  overflow: hidden;
+  padding-right: 10px;
+}
+
 /*# sourceMappingURL=spa.css.map */

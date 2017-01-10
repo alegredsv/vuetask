@@ -16,9 +16,9 @@ use AlegreBill\Models\BankAccount;
 class BankAccountRepositoryEloquent extends BaseRepository implements BankAccountRepository
 {
     protected $fieldSearchable =[
-        'name',
-        'agency',
-        'bank.name'
+        'name' => 'like',
+        'agency' => 'like',
+        'account' => 'like'
     ];
 
     /**
