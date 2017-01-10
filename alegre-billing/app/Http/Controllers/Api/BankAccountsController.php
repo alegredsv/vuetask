@@ -2,6 +2,8 @@
 
 namespace AlegreBill\Http\Controllers\Api;
 
+use AlegreBill\Criteria\FindByLikeAgencyCriteria;
+use AlegreBill\Criteria\FindByNameCriteria;
 use AlegreBill\Http\Controllers\Controller;
 use AlegreBill\Http\Controllers\Response;
 use Illuminate\Http\Request;
@@ -39,7 +41,8 @@ class BankAccountsController extends Controller
      */
     public function index()
     {
-
+        $this->repository->pushCriteria(new FindByNameCriteria('Fritschside'))
+            ->pushCriteria(new FindByLikeAgencyCriteria('9'));
         $bankAccounts = $this->repository->paginate();
         return $bankAccounts;
 
