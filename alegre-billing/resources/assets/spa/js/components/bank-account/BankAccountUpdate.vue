@@ -53,7 +53,7 @@
 
 
             <div class="fixed-action-btn">
-                <a class="btn-floating btn-large" v-link="{name: 'bank-account.create'}">
+                <a class="btn-floating btn-large" href="#">
                     <i class="large material-icons">add</i>
                     </a>
             </div>
