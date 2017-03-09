@@ -42,11 +42,11 @@
                      <div class="row">
 
                          <div class="input-field col s6">
-                             <label>Agência</label>
+                             <label class="active">Agência</label>
                              <input type="text" v-model="bankAccount.agency" placeholder="Digite a agência" />
                          </div>
                          <div class="input-field col s6">
-                             <label>Conta corrente</label>
+                             <label class="active">Conta corrente</label>
                              <input type="text" v-model="bankAccount.account" placeholder="Digite a conta" />
                          </div>
                      </div>
@@ -59,7 +59,11 @@
 
                          </div>
                      </div>
-
+                     <div class="fixed-action-btn">
+                         <button class="btn-floating btn-large" type="submit">
+                             <i class="large material-icons">save</i>
+                         </button>
+                     </div>
 
 
                  </form>
@@ -67,11 +71,7 @@
             </div>
 
 
-            <div class="fixed-action-btn">
-                <a class="btn-floating btn-large" href="#" @click.prevent="subimit()">
-                    <i class="large material-icons">save</i>
-                 </a>
-            </div>
+
         </div>
 
     </div>
@@ -106,7 +106,7 @@
         },
         data(){
             return{
-               bankAccounts:{
+                bankAccount:{
                    name: '',
                    agency: '',
                    account: '',
@@ -121,6 +121,13 @@
            this.getBanks();
         },
         methods:{
+
+            submit(){
+                BankAccount.save({},this.bankAccount).then(() => {
+                    Materialize.toast('Conta bancária criada com sucesso!', 4000);
+                    this.$router.go({name: 'bank-account.list'});
+                })
+            },
             getBanks(){
                 Banks.query().then((response) => {
                                      this.banks = response.data.data;

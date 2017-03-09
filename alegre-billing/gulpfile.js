@@ -1,3 +1,4 @@
+"use strict";
 const gulp = require('gulp');
 const elixir = require('laravel-elixir');
 const webpack = require('webpack');

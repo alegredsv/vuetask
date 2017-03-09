@@ -6,6 +6,7 @@ namespace AlegreBill\Http\Controllers\Api;
 use AlegreBill\Http\Controllers\Controller;
 use AlegreBill\Http\Controllers\Response;
 use AlegreBill\Http\Requests;
+use AlegreBill\Repositories\BankRepository;
 
 
 class BanksController extends Controller
